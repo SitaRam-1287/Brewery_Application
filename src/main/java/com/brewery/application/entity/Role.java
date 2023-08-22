@@ -17,9 +17,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     private String roleName;
 
-    @OneToOne(mappedBy ="role")
-    private User user;
 }

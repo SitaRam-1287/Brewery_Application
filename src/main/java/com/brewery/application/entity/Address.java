@@ -10,31 +10,29 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class Address {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id ;
+    private UUID id;
 
+    @Column
     private String dNo;
 
-
+    @Column
     private String street;
 
+    @Column
     private String city;
 
+    @Column
     private String state;
 
-    private String pincode;
+    @Column
+    private String pin;
 
+    @Column
+    @Enumerated(EnumType.STRING)
     private AddressType addressType;
-
-    @ManyToOne
-    @JoinColumn(name="user",referencedColumnName = "id")
-    private User user;
-
 
 }

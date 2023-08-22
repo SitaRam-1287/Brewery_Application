@@ -1,23 +1,23 @@
 package com.brewery.application.service;
 
 import com.brewery.application.dto.inputdto.UserInDto;
-import com.brewery.application.entity.User;
+import com.brewery.application.dto.outputdto.UserOutDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
 
-    public User createUser(UserInDto input);
+    public UserOutDto createUser(UserInDto input);
 
-    public User getUser(UUID id);
+    public UserOutDto getUser(UUID id);
 
-    public User updateUser(UserInDto input);
+    public UserOutDto updateUser(UserInDto input);
 
-    public User partialUpdateUser(UserInDto input);
+    public UserOutDto partialUpdateUser(UserInDto input);
 
-    public List<User> getAllUsers();
+    public List<UserOutDto> getAllUsers();
 
-    public User deleteUser(UUID id);
+    public UserOutDto deleteUser(UUID id);
 
 }
