@@ -2,10 +2,7 @@ package com.brewery.application.entity;
 
 
 import com.brewery.application.enums.AddressType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ import java.util.UUID;
 public class Address {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id ;
 
     private String dNo;

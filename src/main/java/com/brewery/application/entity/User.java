@@ -1,7 +1,6 @@
 package com.brewery.application.entity;
 
 import jakarta.persistence.*;
-import jdk.incubator.foreign.Addressable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ import java.util.UUID;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column
