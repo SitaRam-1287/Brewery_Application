@@ -21,7 +21,7 @@ public class Invoice {
 
     private Double gst;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="order_id",referencedColumnName = "orderId")
     private Order order;
 }
