@@ -8,11 +8,13 @@ import com.brewery.application.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,46 +25,52 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
     @Override
-    public User createUser(UserInDto input) {
+    public UserOutDto createUser(UserInDto input) {
         User user = convertDtoToEntity(input);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        return convertEntityToDto(user);
     }
 
     @Override
-    public User getUser(UUID id) {
-        User user = userRepository.findById(id).orElse(null);
-        if(user==null){
-            throw new RuntimeException("ID with given user doesn't exist");
-        }
-        return
+    public UserOutDto getUser(UUID id) {
+        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("User with given id is not found"));
+        return convertEntityToDto(user);
     }
 
     @Override
-    public User updateUser(UserInDto input) {
+    public UserOutDto updateUser(UserInDto input) {
+        User user = convertDtoToEntity(input);
+        User existingUser = userRepository.findById(user.getId()).orElseThrow();
+        modelMapper.map(user,existingUser);
+        User currentUser = userRepository.save(existingUser);
+        return convertEntityToDto(currentUser);
+    }
+
+    @Override
+    public UserOutDto partialUpdateUser(UserInDto input) {
         return null;
     }
 
     @Override
-    public User partialUpdateUser(UserInDto input) {
-        return null;
+    public List<UserOutDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserOutDto> userList = users.stream().map(user -> convertEntityToDto(user)).collect(Collectors.toList());
+        return userList;
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public User deleteUser(UUID id) {
-        return null;
+    public UserOutDto deleteUser(UUID id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with given Id"));
+        userRepository.delete(user);
+        return convertEntityToDto(user);
     }
 
     public User convertDtoToEntity(UserInDto input){
         return modelMapper.map(input,User.class);
     }
 
-    public User convertEntityToDto(UserOutDto output){
-        return modelMapper.map(output,User.class);
+    public UserOutDto convertEntityToDto(User user){
+        return modelMapper.map(user,UserOutDto.class);
     }
 
 

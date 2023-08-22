@@ -13,7 +13,8 @@ import java.util.UUID;
 @Table(name="invoice")
 public class Invoice {
     @Id
-    private UUID invoiceId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private Double amount;
 
@@ -21,7 +22,5 @@ public class Invoice {
 
     private Double gst;
 
-    @ManyToOne
-    @JoinColumn(name="order_id",referencedColumnName = "orderId")
-    private Order order;
+    private Double totalAmount;
 }

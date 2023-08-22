@@ -7,23 +7,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order")
+@Table(name = "UserOrder")
 public class Order {
     @Id
-    private UUID orderId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private LocalDateTime orderDateTime;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     @ManyToOne
-    @JoinColumn(name="User",referencedColumnName = "id")
     private User user;
 
+    @ManyToOne
     private Address orderAddress;
+
+    @OneToOne
+    private Invoice invoice;
+
+    @OneToMany
+    private List<Item> foodItems;
 }

@@ -1,15 +1,12 @@
 package com.brewery.application.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class User {
 
@@ -18,7 +15,7 @@ public class User {
     private UUID id;
 
     @Column
-    private  String firstName;
+    private String firstName;
 
     @Column
     private String lastName;
@@ -33,9 +30,10 @@ public class User {
     @Column
     private String phoneNum;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Address> addressList;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="role_id",referencedColumnName ="id")
+    @OneToOne
     private Role role;
 
 }

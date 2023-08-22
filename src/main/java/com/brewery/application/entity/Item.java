@@ -17,8 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -28,6 +26,8 @@ public class Item {
     private String details;
 
     private byte[] image;
+
+    private Double price;
 
     private Boolean inStock;
 
