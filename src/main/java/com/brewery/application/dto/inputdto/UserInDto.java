@@ -9,8 +9,6 @@ public class UserInDto {
 
     private String email;
 
-    private String password;
-
     private String phoneNum;
 
     private UUID roleId;
