@@ -15,11 +15,9 @@ import java.util.UUID;
 @Data
 public class OrderInDto {
 
-    private LocalDateTime orderedTime;
-
     private UUID userId;
 
     private Address address;
 
-    private List<Item> foodItems;
+    private List<UUID> items;
 }

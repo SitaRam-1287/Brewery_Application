@@ -33,6 +33,6 @@ public class Order {
     @OneToOne
     private Invoice invoice;
 
-    @OneToMany
+    @ManyToMany
     private List<Item> foodItems;
 }

@@ -8,6 +8,7 @@ import com.brewery.application.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,9 +19,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public OrderOutDto createOrder(@RequestBody OrderInDto input){
+    public OrderOutDto createOrder(@RequestBody OrderInDto input,@RequestParam LocalDateTime orderedTime){
 
-        return orderService.createOrder(input);
+        return orderService.createOrder(input,orderedTime);
     }
 
     @GetMapping("{id}")
@@ -47,7 +48,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @DeleteMapping("{id]")
+    @DeleteMapping("{id}")
     public OrderOutDto deleteOrder(@PathVariable UUID id){
 
         return orderService.deleteOrder(id);
@@ -65,7 +66,7 @@ public class OrderController {
         return orderService.getOrderByStatus(orderStatus);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/initiatePayment/{id}")
     public InvoiceOutDto initiatePayment(@PathVariable UUID orderId){
 
         return orderService.initiatePayment(orderId);

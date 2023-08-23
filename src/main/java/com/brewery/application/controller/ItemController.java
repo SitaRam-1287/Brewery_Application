@@ -22,7 +22,7 @@ public class ItemController {
         return itemService.createItem(item);
     }
 
-    @PostMapping
+    @PostMapping("/postImage/{id}")
     private ItemOutDto postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
         return itemService.postImage(image,id);
     }
@@ -32,8 +32,8 @@ public class ItemController {
         return itemService.getItem(id);
     }
 
-    @GetMapping("/{foodType}")
-    private Collection<ItemOutDto> getItemByCategory(@PathVariable FoodType foodType){
+    @GetMapping("/foodType")
+    private Collection<ItemOutDto> getItemByCategory(@RequestParam FoodType foodType){
         return itemService.getItemByCategory(foodType);
     }
 

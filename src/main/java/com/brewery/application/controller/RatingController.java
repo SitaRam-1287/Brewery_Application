@@ -45,7 +45,7 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
-    @DeleteMapping("{id]")
+    @DeleteMapping("{id}")
     public RatingOutDto deleteRating(@PathVariable UUID id){
 
         return ratingService.deleteRating(id);
