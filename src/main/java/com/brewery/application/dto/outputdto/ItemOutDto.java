@@ -4,14 +4,17 @@ import com.brewery.application.enums.FoodType;
 import jakarta.persistence.Lob;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class ItemOutDto {
 
+    private UUID id;
     private String name;
 
     private String details;
-    @Lob
-    private String image;
+
+    private byte[] image;
 
     private Double price;
 

@@ -5,6 +5,7 @@ import com.brewery.application.dto.outputdto.ItemOutDto;
 import com.brewery.application.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -18,6 +19,11 @@ public class ItemController {
     @PostMapping
     private ItemOutDto createItem(@RequestBody ItemInDto item) {
         return itemService.createItem(item);
+    }
+
+    @PostMapping("/postImage/{id}")
+    private ItemOutDto postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
+        return itemService.postImage(image,id);
     }
 
     @GetMapping("{id}")
@@ -49,8 +55,6 @@ public class ItemController {
     private void deleteAllItems() {
         itemService.deleteAllItems();
     }
-
-
 
 
 }

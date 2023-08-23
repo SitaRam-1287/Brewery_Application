@@ -8,10 +8,10 @@ import com.brewery.application.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -32,11 +32,31 @@ public class ItemServiceImpl implements ItemService {
         Item getItem=itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with id not found"));
         return modelMapper.map(getItem,ItemOutDto.class);
     }
+    public ItemOutDto postImage(MultipartFile image, UUID id){
+        String s;
+        try{
+            byte[] arr;
+            arr = image.getBytes();
+            s = Base64.getEncoder().encodeToString(arr);
+            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+            item.setImage(s);
+            item = itemRepository.save(item);
+            ItemOutDto itemOutDto = modelMapper.map(item,ItemOutDto.class);
+            String image1 = item.getImage();
+            arr = Base64.getDecoder().decode(image1);
+            itemOutDto.setImage(arr);
+            return itemOutDto;
+
+        }
+        catch(Exception e){
+            throw new RuntimeException("Item with given id is not found");
+        }
+    }
 
     @Override
-    public Collection<ItemOutDto> getAllItems() {
-        Collection<Item> getAllItems=itemRepository.findAll();
-        return Collections.singleton(modelMapper.map(getAllItems, ItemOutDto.class));
+    public List<ItemOutDto> getAllItems() {
+        List<Item> items=itemRepository.findAll();
+        return items.stream().map(item->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
     }
 
     @Override

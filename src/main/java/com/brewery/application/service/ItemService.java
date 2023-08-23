@@ -2,8 +2,10 @@ package com.brewery.application.service;
 
 import com.brewery.application.dto.inputdto.ItemInDto;
 import com.brewery.application.dto.outputdto.ItemOutDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface ItemService {
@@ -12,7 +14,7 @@ public interface ItemService {
 
     public ItemOutDto getItem(UUID id);
 
-    public Collection<ItemOutDto> getAllItems();
+    public List<ItemOutDto> getAllItems();
 
     public ItemOutDto updateItem(ItemInDto item);
 
@@ -21,4 +23,6 @@ public interface ItemService {
     public void deleteItem(UUID id);
 
     public void deleteAllItems();
+
+    public ItemOutDto postImage(MultipartFile image, UUID id);
 }
