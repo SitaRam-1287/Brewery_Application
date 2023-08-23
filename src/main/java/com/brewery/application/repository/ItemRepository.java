@@ -11,4 +11,5 @@ import java.util.UUID;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, UUID> {
     public List<Item> findByFoodType(FoodType foodType);
+
 }

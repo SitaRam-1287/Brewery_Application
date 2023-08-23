@@ -2,6 +2,7 @@ package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.ItemInDto;
 import com.brewery.application.dto.outputdto.ItemOutDto;
+import com.brewery.application.enums.FoodType;
 import com.brewery.application.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ItemController {
         return itemService.createItem(item);
     }
 
-    @PostMapping("/postImage/{id}")
+    @PostMapping("")
     private ItemOutDto postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
         return itemService.postImage(image,id);
     }
@@ -29,6 +30,11 @@ public class ItemController {
     @GetMapping("{id}")
     private ItemOutDto getItem(@PathVariable UUID id) {
         return itemService.getItem(id);
+    }
+
+    @GetMapping("/{foodType}")
+    private Collection<ItemOutDto> getItemByCategory(@PathVariable FoodType foodType){
+        return itemService.getItemByCategory(foodType);
     }
 
     @GetMapping

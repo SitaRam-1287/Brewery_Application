@@ -2,6 +2,7 @@ package com.brewery.application.service;
 
 import com.brewery.application.dto.inputdto.ItemInDto;
 import com.brewery.application.dto.outputdto.ItemOutDto;
+import com.brewery.application.enums.FoodType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
@@ -25,4 +26,6 @@ public interface ItemService {
     public void deleteAllItems();
 
     public ItemOutDto postImage(MultipartFile image, UUID id);
+
+    public Collection<ItemOutDto> getItemByCategory(FoodType foodType);
 }

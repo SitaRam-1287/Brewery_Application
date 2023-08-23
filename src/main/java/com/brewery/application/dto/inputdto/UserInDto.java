@@ -1,5 +1,6 @@
 package com.brewery.application.dto.inputdto;
 
+import com.brewery.application.enums.RoleType;
 import lombok.Data;
 
 import java.util.UUID;
@@ -15,5 +16,5 @@ public class UserInDto {
 
     private String phoneNum;
 
-    private UUID roleId;
+    private RoleType role;
 }

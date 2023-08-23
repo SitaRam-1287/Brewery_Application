@@ -1,5 +1,6 @@
 package com.brewery.application.entity;
 
+import com.brewery.application.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +37,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addressList;
 
-    @OneToOne
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
 }

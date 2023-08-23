@@ -13,8 +13,6 @@ public class ItemInDto {
 
     private String details;
 
-    private MultipartFile image;
-
     private Double price;
 
     private Boolean inStock;

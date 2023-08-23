@@ -5,10 +5,7 @@ import com.brewery.application.dto.outputdto.UserOutDto;
 import com.brewery.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9707aaf0e35a0e0f902131a206ea8b5dc62a6556
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +16,7 @@ public class UserController{
     @Autowired
     private UserService userService;
 
-    @PostMapping()
+    @PostMapping
     public UserOutDto createUser(@RequestBody UserInDto input){
         return userService.createUser(input);
     }
