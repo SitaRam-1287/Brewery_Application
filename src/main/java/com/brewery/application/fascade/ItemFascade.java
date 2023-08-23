@@ -8,7 +8,9 @@ import com.brewery.application.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -26,6 +28,24 @@ public class ItemFascade implements ItemService {
         Item saveItem=itemRepository.save(item1);
         return modelMapper.map(saveItem,ItemOutDto.class);
     }
+
+    public String convertImage(MultipartFile image,UUID id){
+
+        String s;
+        try{
+            byte[] arr;
+            arr = image.getBytes();
+            s = Base64.getEncoder().encodeToString(arr);
+            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException());
+            item.setImage(s);
+
+        }
+        catch(Exception e){
+
+        }
+
+    }
+
 
     @Override
     public ItemOutDto getItem(UUID id) {

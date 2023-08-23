@@ -4,6 +4,7 @@ import com.brewery.application.enums.FoodType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class ItemInDto {
@@ -12,7 +13,7 @@ public class ItemInDto {
 
     private String details;
 
-    private byte[] image;
+    private MultipartFile image;
 
     private Double price;
 

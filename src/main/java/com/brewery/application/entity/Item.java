@@ -1,10 +1,7 @@
 package com.brewery.application.entity;
 
 import com.brewery.application.enums.FoodType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +22,8 @@ public class Item {
 
     private String details;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private String image;
 
     private Double price;

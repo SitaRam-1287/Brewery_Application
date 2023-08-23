@@ -10,8 +10,8 @@ public class ItemOutDto {
     private String name;
 
     private String details;
-    @Lob
-    private String image;
+
+    private byte[] image;
 
     private Double price;
 
