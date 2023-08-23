@@ -1,9 +1,13 @@
 package com.brewery.application.service.Impl;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
+import com.brewery.application.dto.outputdto.InvoiceOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
+import com.brewery.application.entity.Invoice;
+import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
+import com.brewery.application.repository.InvoiceRepository;
 import com.brewery.application.repository.OrderRepository;
 import com.brewery.application.service.OrderService;
 import org.modelmapper.ModelMapper;
@@ -11,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -18,6 +23,9 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private InvoiceRepository invoiceRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -33,6 +41,25 @@ public class OrderServiceImpl implements OrderService{
     public OrderOutDto getOrder(UUID id) {
         Order order = orderRepository.findById(id).orElseThrow(()->new RuntimeException("Order with given id is not found"));
         return convertEntityToDto(order);
+    }
+
+    public InvoiceOutDto initiatePayment(UUID orderId){
+        Order order = orderRepository.findById(orderId).orElseThrow(()->new RuntimeException("Order with given id is not found"));
+        Double Amount = 0.0;
+        Double TotalAmount = 0.0;
+        List<Item> foodItems = order.getFoodItems();
+        for(Item foodItem : foodItems){
+            Amount+=foodItem.getPrice();
+        }
+        Invoice invoice = new Invoice();
+        invoice.setAmount(Amount);
+        invoice.setGst(Amount*0.1);
+        invoice.setDeliveryFee(Amount*0.05);
+        invoice.setTotalAmount(Amount*0.1+Amount*0.05);
+        invoiceRepository.save(invoice);
+        order.setInvoice(invoice);
+        orderRepository.save(order);
+        return modelMapper.map(invoice,InvoiceOutDto.class);
     }
 
     @Override

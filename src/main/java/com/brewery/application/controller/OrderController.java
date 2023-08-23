@@ -1,6 +1,7 @@
 package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
+import com.brewery.application.dto.outputdto.InvoiceOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.service.OrderService;
@@ -57,11 +58,18 @@ public class OrderController {
 
         return orderService.getOrderByUser(id);
 
-    };
+    }
     @GetMapping("/user/{orderStatus}")
     public List<OrderOutDto> getOrderByStatus(@PathVariable OrderStatus orderStatus){
 
         return orderService.getOrderByStatus(orderStatus);
-    };
+    }
+
+    @GetMapping("{id}")
+    public InvoiceOutDto initiatePayment(@PathVariable UUID orderId){
+
+        return orderService.initiatePayment(orderId);
+
+    }
 
 }
