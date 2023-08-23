@@ -22,8 +22,8 @@ public class OrderController {
         return orderService.createOrder(input);
     }
 
-    @GetMapping
-    public OrderOutDto getOrder(UUID id){
+    @GetMapping("{id}")
+    public OrderOutDto getOrder(@PathVariable UUID id){
 
         return orderService.getOrder(id);
     }
@@ -46,8 +46,8 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @DeleteMapping
-    public OrderOutDto deleteOrder(UUID id){
+    @DeleteMapping("{id]")
+    public OrderOutDto deleteOrder(@PathVariable UUID id){
 
         return orderService.deleteOrder(id);
     }

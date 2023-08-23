@@ -15,5 +15,5 @@ public class UserInDto {
 
     private String phoneNum;
 
-    private UUID roleId;
+    private String role;
 }
