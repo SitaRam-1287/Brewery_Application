@@ -1,13 +1,17 @@
 package com.brewery.application.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -19,7 +23,6 @@ public class User {
 
     @Column
     private String lastName;
-
 
     @Column
     private String email;

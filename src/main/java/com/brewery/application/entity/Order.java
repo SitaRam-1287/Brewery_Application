@@ -19,16 +19,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private LocalDateTime orderDateTime;
+    private LocalDateTime orderedTime;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
 
     @ManyToOne
     private User user;
 
     @ManyToOne
-    private Address orderAddress;
+    private Address address;
 
     @OneToOne
     private Invoice invoice;
