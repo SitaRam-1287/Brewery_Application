@@ -5,17 +5,23 @@ import com.brewery.application.dto.outputdto.UserOutDto;
 import com.brewery.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
+@RequestMapping("/user")
 public class UserController{
 
     @Autowired
     private UserService userService;
 
-    public UserOutDto createUser(UserInDto input){
+    @PostMapping()
+    public UserOutDto createUser(@RequestBody UserInDto input){
         return userService.createUser(input);
     }
 

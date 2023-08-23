@@ -25,7 +25,7 @@ public class Item {
 
     private String details;
 
-    private byte[] image;
+    private String image;
 
     private Double price;
 

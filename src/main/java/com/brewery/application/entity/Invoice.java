@@ -22,11 +22,10 @@ public class Invoice {
 
     private Double gst;
 
-<<<<<<< HEAD
     @OneToOne
-    @JoinColumn(name="order_id",referencedColumnName = "orderId")
+    @JoinColumn(name="order_id",referencedColumnName = "id")
     private Order order;
-=======
+
     private Double totalAmount;
->>>>>>> e728991e50111404c743ed9ef95ae248f447ac7f
+
 }
