@@ -22,7 +22,7 @@ public class ItemController {
         return itemService.createItem(item);
     }
 
-    @PostMapping("")
+    @PostMapping
     private ItemOutDto postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
         return itemService.postImage(image,id);
     }
