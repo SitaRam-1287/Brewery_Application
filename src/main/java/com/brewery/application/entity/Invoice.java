@@ -22,10 +22,6 @@ public class Invoice {
 
     private Double gst;
 
-    @OneToOne
-    @JoinColumn(name="order_id",referencedColumnName = "id")
-    private Order order;
-
     private Double totalAmount;
 
 }

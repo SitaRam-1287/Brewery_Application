@@ -1,6 +1,7 @@
 package com.brewery.application.service;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
+import com.brewery.application.dto.outputdto.InvoiceOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface OrderService{
+
+    public InvoiceOutDto initiatePayment(UUID orderId);
 
     public OrderOutDto createOrder(OrderInDto input);
 
