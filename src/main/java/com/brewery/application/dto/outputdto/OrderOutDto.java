@@ -2,6 +2,7 @@ package com.brewery.application.dto.outputdto;
 
 import com.brewery.application.entity.Address;
 import com.brewery.application.entity.Item;
+import com.brewery.application.entity.OrderItem;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,10 @@ import java.util.UUID;
 public class OrderOutDto {
 
     private UUID id;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8266bbc618bbaffe807f5e9ed00485e8c0a253b7
     private LocalDateTime orderedTime;
 
     private UUID userId;
@@ -23,5 +27,5 @@ public class OrderOutDto {
 
     private Address orderAddress;
 
-    private List<Item> foodItems;
+    private List<OrderItem> foodItems;
 }
