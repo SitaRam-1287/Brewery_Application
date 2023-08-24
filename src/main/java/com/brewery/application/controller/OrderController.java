@@ -47,7 +47,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    @DeleteMapping("{id]")
+    @DeleteMapping("{id}")
     public OrderOutDto deleteOrder(@PathVariable UUID id){
 
         return orderService.deleteOrder(id);
@@ -65,7 +65,7 @@ public class OrderController {
         return orderService.getOrderByStatus(orderStatus);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/payment/{id}")
     public InvoiceOutDto initiatePayment(@PathVariable UUID orderId){
 
         return orderService.initiatePayment(orderId);

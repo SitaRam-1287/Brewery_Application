@@ -34,5 +34,5 @@ public class Order {
     private Invoice invoice;
 
     @OneToMany
-    private List<Item> foodItems;
+    private List<OrderItem> foodItems;
 }

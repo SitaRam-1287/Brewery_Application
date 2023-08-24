@@ -10,6 +10,8 @@ import java.util.UUID;
 
 @Data
 public class OrderOutDto {
+
+    private UUID id;
     private LocalDateTime orderedTime;
 
     private UUID userId;

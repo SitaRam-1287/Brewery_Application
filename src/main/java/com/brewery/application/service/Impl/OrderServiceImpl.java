@@ -6,6 +6,7 @@ import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Invoice;
 import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Order;
+import com.brewery.application.entity.OrderItem;
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.repository.InvoiceRepository;
 import com.brewery.application.repository.OrderRepository;
@@ -47,9 +48,10 @@ public class OrderServiceImpl implements OrderService{
         Order order = orderRepository.findById(orderId).orElseThrow(()->new RuntimeException("Order with given id is not found"));
         Double Amount = 0.0;
         Double TotalAmount = 0.0;
-        List<Item> foodItems = order.getFoodItems();
-        for(Item foodItem : foodItems){
-            Amount+=foodItem.getPrice();
+        List<OrderItem> foodItems = order.getFoodItems();
+        for(OrderItem foodItem : foodItems){
+            Item item = foodItem.getItem();
+            Amount+=item.getPrice();
         }
         Invoice invoice = new Invoice();
         invoice.setAmount(Amount);

@@ -2,7 +2,6 @@ package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.RatingInDto;
 import com.brewery.application.dto.outputdto.RatingOutDto;
-import com.brewery.application.enums.RatingStatus;
 import com.brewery.application.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +45,7 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
-    @DeleteMapping("{id]")
+    @DeleteMapping("{id}")
     public RatingOutDto deleteRating(@PathVariable UUID id){
 
         return ratingService.deleteRating(id);
