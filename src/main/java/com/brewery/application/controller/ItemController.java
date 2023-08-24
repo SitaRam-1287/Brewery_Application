@@ -28,6 +28,11 @@ public class ItemController {
         return itemService.postImage(image,id);
     }
 
+    @GetMapping(value = "/getImage/{id}",produces = MediaType.IMAGE_PNG_VALUE)
+    private byte[] getImage(@PathVariable UUID id){
+        return itemService.getImage(id);
+    }
+
     @GetMapping("{id}")
     private ItemOutDto getItem(@PathVariable UUID id) {
         return itemService.getItem(id);

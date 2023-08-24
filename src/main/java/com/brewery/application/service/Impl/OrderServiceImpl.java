@@ -47,17 +47,6 @@ public class OrderServiceImpl implements OrderService{
     public OrderOutDto createOrder(OrderInDto input,LocalDateTime orderedTime) {
         Order order = convertDtoToEntity(input);
         User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
-<<<<<<< HEAD
-//        List<OrderItem> foodItems = new ArrayList<>();
-//        List<UUID> items = input.getItems();
-//        for(UUID id : items){
-//            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException());
-//            foodItems.add(item);
-//        }
-//        order.setFoodItems(foodItems);
-//        order.setUser(user);
-//        order.setOrderedTime(orderedTime);
-=======
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
         for(OrderItemInDto item : foodItems){
@@ -72,7 +61,6 @@ public class OrderServiceImpl implements OrderService{
         order.setFoodItems(foodItems1);
         order.setUser(user);
         order.setOrderedTime(orderedTime);
->>>>>>> 8266bbc618bbaffe807f5e9ed00485e8c0a253b7
         order = orderRepository.save(order);
         return convertEntityToDto(order);
     }

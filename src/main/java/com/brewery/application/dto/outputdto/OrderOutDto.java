@@ -13,10 +13,7 @@ import java.util.UUID;
 public class OrderOutDto {
 
     private UUID id;
-<<<<<<< HEAD
 
-=======
->>>>>>> 8266bbc618bbaffe807f5e9ed00485e8c0a253b7
     private LocalDateTime orderedTime;
 
     private UUID userId;

@@ -9,6 +9,7 @@ import com.brewery.application.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
@@ -62,6 +63,19 @@ public class ItemServiceImpl implements ItemService {
         List<Item> items=itemRepository.findAll();
         return items.stream().map(item ->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
 
+    }
+    public byte[] getImage(@PathVariable UUID id){
+        String s;
+        try{
+            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+            byte arr[];
+            s = item.getImage();
+            arr = Base64.getDecoder().decode(s);
+            return arr;
+        }
+        catch(Exception e){
+            throw new RuntimeException("Item with given id is not found");
+        }
     }
 
     @Override
