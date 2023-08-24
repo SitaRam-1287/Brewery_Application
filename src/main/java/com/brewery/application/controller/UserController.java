@@ -1,6 +1,8 @@
 package com.brewery.application.controller;
 
+import com.brewery.application.dto.inputdto.LoginInputDto;
 import com.brewery.application.dto.inputdto.UserInDto;
+import com.brewery.application.dto.outputdto.LoginOutputDto;
 import com.brewery.application.dto.outputdto.UserOutDto;
 import com.brewery.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,13 @@ public class UserController{
 
     @PostMapping
     public UserOutDto createUser(@RequestBody UserInDto input){
+
         return userService.createUser(input);
+    }
+
+    @PostMapping("/login")
+    public LoginOutputDto login(@RequestBody LoginInputDto loginInputDto){
+        return userService.login(loginInputDto);
     }
 
     @GetMapping("{id}")

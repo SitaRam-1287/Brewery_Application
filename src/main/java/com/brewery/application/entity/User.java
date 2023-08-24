@@ -26,6 +26,9 @@ public class User {
     private String lastName;
 
     @Column
+    private String fireBaseId;
+
+    @Column
     private String email;
 
     @Column

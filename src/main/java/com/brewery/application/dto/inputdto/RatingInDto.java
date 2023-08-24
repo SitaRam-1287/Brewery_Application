@@ -1,14 +1,12 @@
 package com.brewery.application.dto.inputdto;
-
-import com.brewery.application.entity.Item;
-import com.brewery.application.entity.Order;
-import com.brewery.application.entity.User;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.NonNull;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.UUID;
 
 @Data
+@Validated
 public class RatingInDto {
 
     private String comment;
