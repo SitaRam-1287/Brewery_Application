@@ -66,11 +66,7 @@ public class OrderController {
         return orderService.getOrderByStatus(orderStatus);
     }
 
-<<<<<<< HEAD
     @GetMapping("/payment/{id}")
-=======
-    @GetMapping("/initiatePayment/{id}")
->>>>>>> 8fe2e7b345237b28d8411cc86ce6c4664291adcb
     public InvoiceOutDto initiatePayment(@PathVariable UUID orderId){
 
         return orderService.initiatePayment(orderId);

@@ -1,11 +1,6 @@
 package com.brewery.application.dto.inputdto;
 
-import com.brewery.application.entity.Address;
-import com.brewery.application.entity.Invoice;
-import com.brewery.application.entity.Item;
-import com.brewery.application.entity.User;
-import com.brewery.application.enums.OrderStatus;
-import jakarta.persistence.*;
+import com.brewery.application.entity.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,5 +14,5 @@ public class OrderInDto {
 
     private Address address;
 
-    private List<UUID> items;
+    private List<OrderItemInDto> items;
 }

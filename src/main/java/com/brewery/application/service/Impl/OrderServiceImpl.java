@@ -1,21 +1,16 @@
 package com.brewery.application.service.Impl;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
+import com.brewery.application.dto.inputdto.OrderItemInDto;
 import com.brewery.application.dto.outputdto.InvoiceOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Invoice;
 import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Order;
-<<<<<<< HEAD
 import com.brewery.application.entity.OrderItem;
-=======
 import com.brewery.application.entity.User;
->>>>>>> 8fe2e7b345237b28d8411cc86ce6c4664291adcb
 import com.brewery.application.enums.OrderStatus;
-import com.brewery.application.repository.InvoiceRepository;
-import com.brewery.application.repository.ItemRepository;
-import com.brewery.application.repository.OrderRepository;
-import com.brewery.application.repository.UserRepository;
+import com.brewery.application.repository.*;
 import com.brewery.application.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +38,27 @@ public class OrderServiceImpl implements OrderService{
     private UserRepository userRepository;
 
     @Autowired
+    private OrderItemRepository orderItemRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public OrderOutDto createOrder(OrderInDto input,LocalDateTime orderedTime) {
         Order order = convertDtoToEntity(input);
         User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
-        List<Item> foodItems = new ArrayList<>();
-        List<UUID> items = input.getItems();
-        for(UUID id : items){
-            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException());
-            foodItems.add(item);
+        List<OrderItemInDto> foodItems = input.getItems();
+        List<OrderItem> foodItems1 = new ArrayList<>();
+        for(OrderItemInDto item : foodItems){
+           OrderItem it = new OrderItem();
+           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException());
+           it.setItem(item1);
+           it.setQuantity(item.getQuantity());
+           it = orderItemRepository.save(it);
+           foodItems1.add(it);
+
         }
-        order.setFoodItems(foodItems);
+        order.setFoodItems(foodItems1);
         order.setUser(user);
         order.setOrderedTime(orderedTime);
         order = orderRepository.save(order);
