@@ -2,12 +2,10 @@ package com.brewery.application.service;
 
 import com.brewery.application.dto.inputdto.AddressInDto;
 import com.brewery.application.dto.outputdto.AddressOutDto;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
 public interface AddressService {
 
     public AddressOutDto postAddress(AddressInDto addressInDto);
