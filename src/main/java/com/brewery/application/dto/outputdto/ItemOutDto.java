@@ -10,11 +10,12 @@ import java.util.UUID;
 public class ItemOutDto {
 
     private UUID id;
+
     private String name;
 
     private String details;
 
-    private byte[] image;
+    private String image;
 
     private Double price;
 

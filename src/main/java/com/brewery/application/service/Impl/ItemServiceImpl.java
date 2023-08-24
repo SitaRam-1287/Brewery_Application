@@ -30,10 +30,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemOutDto getItem(UUID id) {
-        Item getItem=itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with id not found"));
-        return modelMapper.map(getItem,ItemOutDto.class);
+        Item item=itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with id not found"));
+        return modelMapper.map(item,ItemOutDto.class);
     }
-    public ItemOutDto postImage(MultipartFile image, UUID id){
+    public String postImage(MultipartFile image, UUID id){
         String s;
         try{
             byte[] arr;
@@ -42,11 +42,8 @@ public class ItemServiceImpl implements ItemService {
             Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with given id is not found"));
             item.setImage(s);
             item = itemRepository.save(item);
-            ItemOutDto itemOutDto = modelMapper.map(item,ItemOutDto.class);
             String image1 = item.getImage();
-            arr = Base64.getDecoder().decode(image1);
-            itemOutDto.setImage(arr);
-            return itemOutDto;
+            return image1;
 
         }
         catch(Exception e){
@@ -57,13 +54,14 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemOutDto> getItemByCategory(FoodType foodType) {
         List<Item> items=itemRepository.findByFoodType(foodType);
-        return items.stream().map(item->modelMapper.map(item,ItemOutDto.class)).collect(Collectors.toList());
+        return items.stream().map(item ->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<ItemOutDto> getAllItems() {
         List<Item> items=itemRepository.findAll();
-        return items.stream().map(item->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
+        return items.stream().map(item ->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
+
     }
 
     @Override

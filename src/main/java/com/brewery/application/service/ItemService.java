@@ -25,7 +25,7 @@ public interface ItemService {
 
     public void deleteAllItems();
 
-    public ItemOutDto postImage(MultipartFile image, UUID id);
+    public String postImage(MultipartFile image, UUID id);
 
     public Collection<ItemOutDto> getItemByCategory(FoodType foodType);
 }

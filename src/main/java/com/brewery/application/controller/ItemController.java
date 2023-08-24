@@ -5,6 +5,7 @@ import com.brewery.application.dto.outputdto.ItemOutDto;
 import com.brewery.application.enums.FoodType;
 import com.brewery.application.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +23,8 @@ public class ItemController {
         return itemService.createItem(item);
     }
 
-    @PostMapping("/postImage/{id}")
-    private ItemOutDto postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
+    @PostMapping(value = "/postImage/{id}",produces = MediaType.IMAGE_PNG_VALUE)
+    private String postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
         return itemService.postImage(image,id);
     }
 

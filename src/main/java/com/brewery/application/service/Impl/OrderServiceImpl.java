@@ -6,11 +6,8 @@ import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Invoice;
 import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Order;
-<<<<<<< HEAD
 import com.brewery.application.entity.OrderItem;
-=======
 import com.brewery.application.entity.User;
->>>>>>> 8fe2e7b345237b28d8411cc86ce6c4664291adcb
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.repository.InvoiceRepository;
 import com.brewery.application.repository.ItemRepository;
@@ -49,15 +46,15 @@ public class OrderServiceImpl implements OrderService{
     public OrderOutDto createOrder(OrderInDto input,LocalDateTime orderedTime) {
         Order order = convertDtoToEntity(input);
         User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
-        List<Item> foodItems = new ArrayList<>();
-        List<UUID> items = input.getItems();
-        for(UUID id : items){
-            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException());
-            foodItems.add(item);
-        }
-        order.setFoodItems(foodItems);
-        order.setUser(user);
-        order.setOrderedTime(orderedTime);
+//        List<OrderItem> foodItems = new ArrayList<>();
+//        List<UUID> items = input.getItems();
+//        for(UUID id : items){
+//            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException());
+//            foodItems.add(item);
+//        }
+//        order.setFoodItems(foodItems);
+//        order.setUser(user);
+//        order.setOrderedTime(orderedTime);
         order = orderRepository.save(order);
         return convertEntityToDto(order);
     }
