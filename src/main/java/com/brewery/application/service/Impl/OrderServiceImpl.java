@@ -46,12 +46,12 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderOutDto createOrder(OrderInDto input,LocalDateTime orderedTime) {
         Order order = convertDtoToEntity(input);
-        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
+        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
         for(OrderItemInDto item : foodItems){
            OrderItem it = new OrderItem();
-           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException());
+           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
            it.setItem(item1);
            it.setQuantity(item.getQuantity());
            it = orderItemRepository.save(it);
@@ -108,7 +108,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderOutDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
-        List<OrderOutDto> orderList = orders.stream().map(order -> convertEntityToDto(order)).collect(Collectors.toList());
+        List<OrderOutDto> orderList = orders.stream().map(this::convertEntityToDto).collect(Collectors.toList());
         return orderList;
     }
 
@@ -122,13 +122,13 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderOutDto> getOrderByUser(UUID id) {
         List<Order> orders = orderRepository.findOrderByUserId(id);
-        return orders.stream().map(order->convertEntityToDto(order)).collect(Collectors.toList());
+        return orders.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus) {
         List<Order> orders = orderRepository.findOrderByStatus(orderStatus);
-        return orders.stream().map(order->convertEntityToDto(order)).collect(Collectors.toList());
+        return orders.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     public Order convertDtoToEntity(OrderInDto input){

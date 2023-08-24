@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "breweryapplication",
+  "private_key_id": "98c766183cd767d0ab0b755733528be7d5c700de",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCyPcGr19v3kbdo\nK/Yqvk8cialZX4ginKYx0XcN/P4zpIlAf7Oof4Rmt1zzR/SY0gcRfNly93PUmhkU\nP7iwukbwDG/mPHmCjjQEfTvEUZ4jfsIB72suCdc0ZhPuhpw4liUc3fwK7FAi2Rt8\nNFJWNg+Oj2U6kv3ev4X+igusTVXkLbr5Lj4Ezj+DEAPvqcT9Pbk2HB3tb9Tx5U/f\nHOEIsABeM+6Q9eaVGqw7tx0MBb5LaVtjNKNDiB+6oac5pER2TUg25P0jth64wdhG\nUyrMvoxhYz20veKSaKGfy5q2elvFs9fanRX2qw7XBMtSQxkHu9YBjCH0zgw61zVv\nYsFPLGzHAgMBAAECggEAGbevagwLQP1VaUJuklxDLeru9GZETjosAKQoeWw3gVwM\nMbI7SeScRfXPA4suT55+RpetCFmL7PEPDUzkaRt3gMtKmf2/yoaaGsu3A+yC1LxF\nYeIZpNrmojjYR2JEyCVh1XhyFWFjbqPEw3cJKkdCl185S+pJlworWz6v0HyYGAQD\ngcSef5j8odNpCPsRrIyqZy3QyyWs3Z1SnMAXxhAc0iEE6tFm8mQy8CXYT5kle7x1\nlpXKdVlDHKeTOixgkRK/ffsI/aABGm8pYKiKJJO0MKXw7gAr5liU+lY820z4APmh\n0yCjHUoz6LFoa+l5AxRIlgQmNUkA2l1FAm2VZz1JAQKBgQDV7bAJxRsinsLIKRLH\nnPcr57hpmeY8GVxz+ga0OG2pe2IvVMEh+DxWDFeWvRGfNmN1M7b5AEKqSWw8mjlB\nqEAbexDuLcjlbW7ANJw03wHTgBhVkdGh5Jb0A7WTMtxrg5jc9VsqCdWxJ+HYTZaf\n9cL9IU9a/WQEgSzkPpAHCh7CCQKBgQDVS2GbqTBmPKqAvx1qU8I/qm5RUn7784xR\ncVvKwHOkXJjPzuCvt9spBK9uVkcmvzQ2PQtIEOxuWfYtf87H9q3dAwPzb9XeDBNQ\n0Y3zaGGFNzfOCjPjzi9eQvvYQfFzISQALmVFpW8bVOT6BX0f7oab9EBYQRLMSmSY\nPOGtJO0sTwKBgEqzvkYbGxeiwresiA9GQ5WETAQsJpaT8JHbHB4wmjKVkDqg6PQY\nv9D4bFmJ2i5zipVxopIewii+jNo4rIe93ez6s3XIbR+YcBUUCfv4Z6XYVCcFTWOv\n8/pvlSc6mne8s1NtJhFu77z2BUpIBbID2rwTtqc6VoOwK+Hj6t1ablUpAoGAez2a\nAWIJuBj3f3pt2aDZzQWBxnU/L/7yJaC1I/p9Fwv1s6TaSE2YUSQG5V7ur6Gs3mX5\nHcPBiKVsS6/cX8fVf60dXExTK4CYrIrYVTsLlfhowyE8CDV7QyC6+aJoi1grv/sO\nwuYqw4US5K/FM20T1AqWHyhCX03gv+H1l6CNdZsCgYAecHYpotY52vZDrCA1XG9C\n5JmqarRNX2vHr9QuXrrDdNyqEHD6+Z0P+wRep237AYmTqL+Xs51A50htPGTZwelW\np3+HkoeWPUoNwHHCPFEguJqHrl/atLWL2N1LNzPj9lnbGYKctaFZP+e08+0sFmIe\n0AuFK0wbnMOm9qVVp+CqNw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-87zq2@breweryapplication.iam.gserviceaccount.com",
+  "client_id": "115916876720860504242",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-87zq2%40breweryapplication.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

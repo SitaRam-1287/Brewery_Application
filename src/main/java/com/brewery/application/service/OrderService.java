@@ -27,6 +27,7 @@ public interface OrderService{
     public OrderOutDto deleteOrder(UUID id);
 
     public List<OrderOutDto> getOrderByUser(UUID id);
+
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus);
 
 }

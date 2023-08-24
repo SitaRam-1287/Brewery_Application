@@ -14,6 +14,8 @@ public class UserInDto {
 
     private String email;
 
+    private String password;
+
     private String phoneNum;
 
     private List<Address> addressList;
