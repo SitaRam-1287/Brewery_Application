@@ -1,5 +1,5 @@
-import {View, Text, StatusBar, TextInput, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import {View, Text, StatusBar, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Categories from '../components/Categories';
 import Row from '../components/Row';
@@ -16,10 +16,12 @@ const HomeScreen = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}>
           <Banner images={bannerImages} />
-          <Categories />
-          <Row title={'Most ordered'} data={dummyDishes} />
-          <Row title={'Top rated'} data={dummyDishes} />
-          <Row title={'Must try'} data={dummyDishes} />
+          <Row
+            title={'Most ordered'}
+            fetchURL={'/item/foodType?foodType=BEER'}
+          />
+          <Row title={'Top rated'} fetchURL={'/item/foodType?foodType=BEER'} />
+          <Row title={'Must try'} fetchURL={'/item/foodType?foodType=BEER'} />
         </ScrollView>
       </View>
     </SafeAreaView>

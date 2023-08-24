@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,37 +7,40 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
+  FlatList,
 } from 'react-native';
 import {categories} from '../constants/index';
 
-const Categories = () => {
-  const [activeCategory, setActiveCategory] = useState(null);
+const Categories = ({onSelectCategory, activeCategory}) => {
+  const renderItem = ({item}) => {
+    const isActive = item.name === activeCategory;
+    const categoryContainerStyle = isActive
+      ? [styles.categoryContainer, styles.activeCategoryContainer]
+      : styles.categoryContainer;
+
+    return (
+      <View key={item.id} style={categoryContainerStyle}>
+        <TouchableOpacity
+          onPress={() => onSelectCategory(item.name)}
+          style={styles.categoryButton}>
+          <Image style={styles.categoryImage} source={item.image} />
+        </TouchableOpacity>
+        <Text style={styles.categoryName}>{item.name}</Text>
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView>
-      <Text style={styles.title}>Categoies</Text>
-      <ScrollView
+      <Text style={styles.title}>Categories</Text>
+      <FlatList
+        data={categories}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.container}>
-        {categories.map(category => {
-          const isActive = category.id === activeCategory;
-          const categoryContainerStyle = isActive
-            ? [styles.categoryContainer, styles.activeCategoryContainer]
-            : styles.categoryContainer;
-
-          return (
-            <View key={category.id} style={categoryContainerStyle}>
-              <TouchableOpacity
-                onPress={() => setActiveCategory(category.id)}
-                style={styles.categoryButton}>
-                <Image style={styles.categoryImage} source={category.image} />
-              </TouchableOpacity>
-              <Text style={styles.categoryName}>{category.name}</Text>
-            </View>
-          );
-        })}
-      </ScrollView>
+        contentContainerStyle={styles.container}
+      />
     </SafeAreaView>
   );
 };
@@ -69,8 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   categoryImage: {
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
     resizeMode: 'contain',
   },
   categoryName: {
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    marginLeft:10,
+    marginLeft: 10,
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,

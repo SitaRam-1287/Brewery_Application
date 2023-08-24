@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 
 // Truncate function
 function truncate(str, n) {
@@ -8,6 +10,16 @@ function truncate(str, n) {
 
 export default function ItemCard({name, description, price, image}) {
   const [quantity, setQuantity] = useState(0);
+  const navigation = useNavigation(); // Initialize navigation using the hook
+
+  const handleSeeDetails = () => {
+    navigation.navigate('ItemDetails', {
+      name,
+      description,
+      price,
+      image,
+    });
+  };
 
   const handleIncrease = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -23,36 +35,48 @@ export default function ItemCard({name, description, price, image}) {
 
   return (
     <View style={styles.card}>
-      <Image style={styles.image} source={image} />
+      <FastImage
+        style={styles.image}
+        source={{
+          uri: `data:image/png;base64,${image}`,
+          priority: FastImage.priority.normal,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+      />
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
         <Text numberOfLines={2} style={styles.description} ellipsizeMode="tail">
           {truncatedDescription}
         </Text>
         <View style={styles.priceContainer}>
-          <Text style={styles.price}>${price}</Text>
-          <View style={styles.quantityContainer}>
-            {quantity === 0 ? (
-              <TouchableOpacity
-                onPress={handleIncrease}
-                style={styles.addButton}>
-                <Text style={styles.addButtonLabel}>Add</Text>
-              </TouchableOpacity>
-            ) : (
-              <>
-                <TouchableOpacity
-                  onPress={handleDecrease}
-                  style={styles.quantityButton}>
-                  <Text style={styles.quantityText}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.quantity}>{quantity}</Text>
+          <Text style={styles.price}>Rs. {price}</Text>
+          <View>
+            <View style={styles.quantityContainer}>
+              {quantity === 0 ? (
                 <TouchableOpacity
                   onPress={handleIncrease}
-                  style={styles.quantityButton}>
-                  <Text style={styles.quantityText}>+</Text>
+                  style={styles.addButton}>
+                  <Text style={styles.addButtonLabel}>Add</Text>
                 </TouchableOpacity>
-              </>
-            )}
+              ) : (
+                <>
+                  <TouchableOpacity
+                    onPress={handleDecrease}
+                    style={styles.quantityButton}>
+                    <Text style={styles.quantityText}>-</Text>
+                  </TouchableOpacity>
+                  <Text style={styles.quantity}>{quantity}</Text>
+                  <TouchableOpacity
+                    onPress={handleIncrease}
+                    style={styles.quantityButton}>
+                    <Text style={styles.quantityText}>+</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+            <TouchableOpacity onPress={handleSeeDetails}>
+              <Text style={styles.detailsButtonText}>See Details</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -136,5 +160,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  detailsButtonText: {
+    color: 'gray',
   },
 });

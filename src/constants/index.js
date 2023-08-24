@@ -1,33 +1,33 @@
 export const categories = [
   {
     id: 1,
-    name: 'Craft',
-    image: require('../assets/images/beer.png'),
+    name: 'Beer',
+    image: require('../assets/images/craft.png'),
   },
   {
     id: 2,
-    name: 'Draught',
-    image: require('../assets/images/beer.png'),
+    name: 'Pizza',
+    image: require('../assets/images/draught.png'),
   },
   {
     id: 3,
-    name: 'Domestic',
-    image: require('../assets/images/beer.png'),
+    name: 'Burger',
+    image: require('../assets/images/domestic.png'),
   },
   {
     id: 4,
-    name: 'Imported',
-    image: require('../assets/images/beer.png'),
+    name: 'Beer',
+    image: require('../assets/images/imported.png'),
   },
   {
     id: 5,
-    name: 'Pizzas',
+    name: 'Pizza',
     image: require('../assets/images/pizzaIcon.png'),
   },
   {
     id: 6,
-    name: 'Appetizers',
-    image: require('../assets/images/pizzaIcon.png'),
+    name: 'Burger',
+    image: require('../assets/images/appetizer.png'),
   },
 ];
 
@@ -37,7 +37,7 @@ export const dummyDishes = [
     name: 'Budweiser',
     description: ' American-style pale lager, a brand of Belgian company ',
     price: 12.99,
-    image: require('../assets/images/bottle.png'),
+    image: require('../assets/images/bottle1.png'),
   },
   {
     id: 2,
