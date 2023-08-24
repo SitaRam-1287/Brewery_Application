@@ -33,6 +33,11 @@ public class Order {
     @OneToOne
     private Invoice invoice;
 
+<<<<<<< HEAD
     @OneToMany
     private List<OrderItem> foodItems;
+=======
+    @ManyToMany
+    private List<Item> foodItems;
+>>>>>>> 8fe2e7b345237b28d8411cc86ce6c4664291adcb
 }

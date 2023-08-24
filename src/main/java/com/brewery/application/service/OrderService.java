@@ -6,6 +6,7 @@ import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public interface OrderService{
 
     public InvoiceOutDto initiatePayment(UUID orderId);
 
-    public OrderOutDto createOrder(OrderInDto input);
+    public OrderOutDto createOrder(OrderInDto input, LocalDateTime orderedTime);
 
     public OrderOutDto getOrder(UUID id);
 

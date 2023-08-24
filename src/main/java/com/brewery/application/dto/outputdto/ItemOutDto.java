@@ -1,7 +1,7 @@
 package com.brewery.application.dto.outputdto;
 
 import com.brewery.application.enums.FoodType;
-import jakarta.persistence.Lob;
+
 import lombok.Data;
 
 import java.util.UUID;

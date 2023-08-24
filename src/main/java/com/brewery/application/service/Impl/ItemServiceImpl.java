@@ -3,6 +3,7 @@ package com.brewery.application.service.Impl;
 import com.brewery.application.dto.inputdto.ItemInDto;
 import com.brewery.application.dto.outputdto.ItemOutDto;
 import com.brewery.application.entity.Item;
+import com.brewery.application.enums.FoodType;
 import com.brewery.application.repository.ItemRepository;
 import com.brewery.application.service.ItemService;
 import org.modelmapper.ModelMapper;
@@ -54,6 +55,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<ItemOutDto> getItemByCategory(FoodType foodType) {
+        List<Item> items=itemRepository.findByFoodType(foodType);
+        return items.stream().map(item->modelMapper.map(item,ItemOutDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
     public List<ItemOutDto> getAllItems() {
         List<Item> items=itemRepository.findAll();
         return items.stream().map(item->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
@@ -82,5 +89,7 @@ public class ItemServiceImpl implements ItemService {
     public void deleteAllItems() {
         itemRepository.deleteAll();
     }
+
+
 
 }

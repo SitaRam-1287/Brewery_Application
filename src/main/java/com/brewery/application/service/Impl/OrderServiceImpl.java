@@ -6,15 +6,23 @@ import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Invoice;
 import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Order;
+<<<<<<< HEAD
 import com.brewery.application.entity.OrderItem;
+=======
+import com.brewery.application.entity.User;
+>>>>>>> 8fe2e7b345237b28d8411cc86ce6c4664291adcb
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.repository.InvoiceRepository;
+import com.brewery.application.repository.ItemRepository;
 import com.brewery.application.repository.OrderRepository;
+import com.brewery.application.repository.UserRepository;
 import com.brewery.application.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -29,11 +37,27 @@ public class OrderServiceImpl implements OrderService{
     private InvoiceRepository invoiceRepository;
 
     @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public OrderOutDto createOrder(OrderInDto input) {
+    public OrderOutDto createOrder(OrderInDto input,LocalDateTime orderedTime) {
         Order order = convertDtoToEntity(input);
+        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
+        List<Item> foodItems = new ArrayList<>();
+        List<UUID> items = input.getItems();
+        for(UUID id : items){
+            Item item = itemRepository.findById(id).orElseThrow(()->new RuntimeException());
+            foodItems.add(item);
+        }
+        order.setFoodItems(foodItems);
+        order.setUser(user);
+        order.setOrderedTime(orderedTime);
         order = orderRepository.save(order);
         return convertEntityToDto(order);
     }
