@@ -29,5 +29,9 @@ public class Item {
 
     private Boolean inStock;
 
+    private Integer quantityOrdered;
+
+    private Double rating;
+
     private FoodType foodType;
 }

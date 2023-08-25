@@ -3,6 +3,7 @@ package com.brewery.application.controller;
 import com.brewery.application.dto.inputdto.OrderInDto;
 import com.brewery.application.dto.outputdto.InvoiceOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
+import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,10 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public OrderOutDto createOrder(@RequestBody OrderInDto input,@RequestParam LocalDateTime orderedTime){
+    public InvoiceOutDto createOrder(@RequestBody OrderInDto input){
 
-        return orderService.createOrder(input,orderedTime);
+        InvoiceOutDto order = orderService.createOrder(input);
+        return order;
     }
 
     @GetMapping("{id}")
@@ -67,9 +69,9 @@ public class OrderController {
     }
 
     @GetMapping("/payment/{id}")
-    public InvoiceOutDto initiatePayment(@PathVariable UUID orderId){
+    public InvoiceOutDto initiatePayment(Order order){
 
-        return orderService.initiatePayment(orderId);
+        return orderService.initiatePayment(order);
 
     }
 

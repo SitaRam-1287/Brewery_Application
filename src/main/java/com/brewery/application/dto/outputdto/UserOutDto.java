@@ -3,6 +3,7 @@ package com.brewery.application.dto.outputdto;
 import com.brewery.application.enums.Role;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -18,5 +19,5 @@ public class UserOutDto {
 
     private String phoneNum;
 
-    private Role role;
+    private List<AddressOutDto> addressList;
 }

@@ -22,7 +22,7 @@ public class OrderOutDto {
 
     private String userLastName;
 
-    private Address orderAddress;
+    private AddressOutDto  address;
 
     private List<OrderItem> foodItems;
 }

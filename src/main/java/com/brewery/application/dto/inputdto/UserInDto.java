@@ -18,7 +18,7 @@ public class UserInDto {
 
     private String phoneNum;
 
-    private List<Address> addressList;
+    private List<AddressInDto> addressList;
 
     private Role role;
 }

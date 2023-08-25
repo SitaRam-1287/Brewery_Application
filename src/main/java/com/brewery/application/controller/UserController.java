@@ -4,6 +4,7 @@ import com.brewery.application.dto.inputdto.LoginInputDto;
 import com.brewery.application.dto.inputdto.UserInDto;
 import com.brewery.application.dto.outputdto.LoginOutputDto;
 import com.brewery.application.dto.outputdto.UserOutDto;
+import com.brewery.application.entity.Address;
 import com.brewery.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +36,14 @@ public class UserController{
 
     @PutMapping
     public UserOutDto updateUser(UserInDto input){
+
         return userService.updateUser(input);
     }
 
+    @PostMapping("/address")
+    public UserOutDto updateAddress(Address address,UUID id){
+        return null;
+    }
 
     @PatchMapping
     public UserOutDto partialUpdateUser(UserInDto input){

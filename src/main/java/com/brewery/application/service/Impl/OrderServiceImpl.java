@@ -2,13 +2,10 @@ package com.brewery.application.service.Impl;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
 import com.brewery.application.dto.inputdto.OrderItemInDto;
+import com.brewery.application.dto.outputdto.AddressOutDto;
 import com.brewery.application.dto.outputdto.InvoiceOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
-import com.brewery.application.entity.Invoice;
-import com.brewery.application.entity.Item;
-import com.brewery.application.entity.Order;
-import com.brewery.application.entity.OrderItem;
-import com.brewery.application.entity.User;
+import com.brewery.application.entity.*;
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.repository.*;
 import com.brewery.application.service.OrderService;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -38,14 +34,17 @@ public class OrderServiceImpl implements OrderService{
     private UserRepository userRepository;
 
     @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
     private OrderItemRepository orderItemRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public OrderOutDto createOrder(OrderInDto input,LocalDateTime orderedTime) {
-        Order order = convertDtoToEntity(input);
+    public InvoiceOutDto createOrder(OrderInDto input) {
+        Order order = new Order();
         User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
@@ -54,15 +53,19 @@ public class OrderServiceImpl implements OrderService{
            Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
            it.setItem(item1);
            it.setQuantity(item.getQuantity());
+           item1.setQuantityOrdered(item.getQuantity()+ item1.getQuantityOrdered());
            it = orderItemRepository.save(it);
            foodItems1.add(it);
 
         }
+        Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new RuntimeException());
+        AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
         order.setFoodItems(foodItems1);
         order.setUser(user);
-        order.setOrderedTime(orderedTime);
+        order.setOrderedTime(LocalDateTime.now());
+        order.setAddress(address);
         order = orderRepository.save(order);
-        return convertEntityToDto(order);
+        return initiatePayment(order);
     }
 
     @Override
@@ -71,8 +74,7 @@ public class OrderServiceImpl implements OrderService{
         return convertEntityToDto(order);
     }
 
-    public InvoiceOutDto initiatePayment(UUID orderId){
-        Order order = orderRepository.findById(orderId).orElseThrow(()->new RuntimeException("Order with given id is not found"));
+    public InvoiceOutDto initiatePayment(Order order){
         Double Amount = 0.0;
         Double TotalAmount = 0.0;
         List<OrderItem> foodItems = order.getFoodItems();
@@ -83,9 +85,9 @@ public class OrderServiceImpl implements OrderService{
         Invoice invoice = new Invoice();
         invoice.setAmount(Amount);
         invoice.setGst(Amount*0.1);
-        invoice.setDeliveryFee(Amount*0.05);
-        invoice.setTotalAmount(Amount*0.1+Amount*0.05);
-        invoiceRepository.save(invoice);
+        invoice.setDeliveryFee(40.0);
+        invoice.setTotalAmount(Amount*0.05+40.0);
+        invoice = invoiceRepository.save(invoice);
         order.setInvoice(invoice);
         orderRepository.save(order);
         return modelMapper.map(invoice,InvoiceOutDto.class);

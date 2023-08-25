@@ -1,7 +1,8 @@
 package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.ItemInDto;
-import com.brewery.application.dto.outputdto.ItemOutDto;
+import com.brewery.application.dto.outputdto.ItemBasicOutDto;
+import com.brewery.application.dto.outputdto.ItemFullDetailsDto;
 import com.brewery.application.enums.FoodType;
 import com.brewery.application.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,7 +21,7 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping
-    private ItemOutDto createItem(@RequestBody ItemInDto item) {
+    private ItemBasicOutDto createItem(@RequestBody ItemInDto item) {
         return itemService.createItem(item);
     }
 
@@ -34,27 +36,36 @@ public class ItemController {
     }
 
     @GetMapping("{id}")
-    private ItemOutDto getItem(@PathVariable UUID id) {
+    private ItemFullDetailsDto getItem(@PathVariable UUID id) {
         return itemService.getItem(id);
     }
 
+    @GetMapping("/mostOrdered")
+    private ItemBasicOutDto itemOrderedMore(){
+        return itemService.itemOrderedMore();
+    }
+    @GetMapping("/topRated")
+    private ItemBasicOutDto itemWithMoreRating(){
+        return itemService.itemWithMoreRating();
+    }
+
     @GetMapping("/foodType")
-    private Collection<ItemOutDto> getItemByCategory(@RequestParam FoodType foodType){
+    private Collection<ItemBasicOutDto> getItemByCategory(@RequestParam FoodType foodType){
         return itemService.getItemByCategory(foodType);
     }
 
     @GetMapping
-    private Collection<ItemOutDto> getAllItems() {
+    private Collection<ItemBasicOutDto> getAllItems() {
         return itemService.getAllItems();
     }
 
     @PutMapping
-    private ItemOutDto updateItem(@RequestBody ItemInDto item) {
+    private ItemBasicOutDto updateItem(@RequestBody ItemInDto item) {
         return itemService.updateItem(item);
     }
 
     @PatchMapping
-    private ItemOutDto patchItem(@RequestBody ItemInDto item) {
+    private ItemBasicOutDto patchItem(@RequestBody ItemInDto item) {
         return itemService.patchItem(item);
     }
 
@@ -66,6 +77,18 @@ public class ItemController {
     @DeleteMapping
     private void deleteAllItems() {
         itemService.deleteAllItems();
+    }
+    @GetMapping("/orderQuantity")
+    private List<ItemBasicOutDto> getByOrderQuantity(){
+        return itemService.getByOrderQuantity();
+    }
+    @GetMapping("name/{name}")
+    private ItemBasicOutDto getByName(@PathVariable String name){
+        return itemService.getByName(name);
+    }
+    @GetMapping("/rating")
+    private List<ItemBasicOutDto> getByItemRating(){
+        return itemService.getByItemRating();
     }
 
 

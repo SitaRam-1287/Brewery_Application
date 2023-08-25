@@ -38,14 +38,22 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public RatingOutDto createRating(RatingInDto input) {
-        Rating rating = convertDtoToEntity(input);
-        rating = ratingRepository.save(rating);
+        Rating rating = new Rating();
         User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
         Item item = itemRepository.findById(input.getItemId()).orElseThrow(()->new RuntimeException());
         Order order = orderRepository.findById(input.getOrderId()).orElseThrow(()->new RuntimeException());
+        if(item.getRating()!= null){
+            item.setRating((item.getRating()+ input.getRating())/2);
+        }else{
+            item.setRating(input.getRating().doubleValue());
+        }
+        item = itemRepository.save(item);
         rating.setUser(user);
         rating.setItem(item);
         rating.setOrder(order);
+        rating.setComment(input.getComment());
+        rating.setRating(input.getRating());
+        rating = ratingRepository.save(rating);
         return convertEntityToDto(rating);
     }
 

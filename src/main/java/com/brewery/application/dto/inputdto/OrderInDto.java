@@ -12,7 +12,7 @@ public class OrderInDto {
 
     private UUID userId;
 
-    private Address address;
+    private UUID addressId;
 
     private List<OrderItemInDto> items;
 }

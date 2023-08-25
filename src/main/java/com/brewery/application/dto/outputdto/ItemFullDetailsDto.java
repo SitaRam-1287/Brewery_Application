@@ -1,13 +1,12 @@
 package com.brewery.application.dto.outputdto;
 
 import com.brewery.application.enums.FoodType;
-
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
-
 @Data
-public class ItemOutDto {
+public class ItemFullDetailsDto {
 
     private UUID id;
 
@@ -19,7 +18,9 @@ public class ItemOutDto {
 
     private Double price;
 
-    private Boolean inStock;
+    private Double rating;
 
     private FoodType foodType;
+
+    private List<RatingOutDto> ratings;
 }

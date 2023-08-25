@@ -1,12 +1,16 @@
 package com.brewery.application.service.Impl;
 
+import com.brewery.application.dto.inputdto.AddressInDto;
 import com.brewery.application.dto.inputdto.LoginInputDto;
 import com.brewery.application.dto.inputdto.UserInDto;
 import com.brewery.application.dto.inputdto.UserInputDto;
+import com.brewery.application.dto.outputdto.AddressOutDto;
 import com.brewery.application.dto.outputdto.LoginOutputDto;
 import com.brewery.application.dto.outputdto.SignInFireBaseOutput;
 import com.brewery.application.dto.outputdto.UserOutDto;
+import com.brewery.application.entity.Address;
 import com.brewery.application.entity.User;
+import com.brewery.application.repository.AddressRepository;
 import com.brewery.application.repository.UserRepository;
 import com.brewery.application.service.FireBaseService;
 import com.brewery.application.service.UserService;
@@ -21,10 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -52,8 +56,21 @@ public class UserServiceImpl implements UserService {
         userInput.setName(user.getFirstName()+" "+user.getLastName());
         UserRecord userRecord = fireBaseService.createInFireBase(userInput);
         user.setFireBaseId(userRecord.getUid());
+
+        List<AddressInDto> address = input.getAddressList();
+        List<Address> addressList = new ArrayList<>();
+        List<AddressOutDto> addressList2  = new ArrayList<>();
+        for(AddressInDto address1 : address){
+            Address address2 = modelMapper.map(address1,Address.class);
+            address2 = addressRepository.save(address2);
+            addressList.add(address2);
+            addressList2.add(modelMapper.map(address2,AddressOutDto.class));
+        }
+        user.setAddressList(addressList);
         user = userRepository.save(user);
-        return convertEntityToDto(user);
+        UserOutDto userOutDto = convertEntityToDto(user);
+        userOutDto.setAddressList(addressList2);
+        return userOutDto;
     }
 
     public LoginOutputDto login(LoginInputDto input) {

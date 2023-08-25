@@ -1,10 +1,14 @@
 package com.brewery.application.service.Impl;
 
 import com.brewery.application.dto.inputdto.ItemInDto;
-import com.brewery.application.dto.outputdto.ItemOutDto;
+import com.brewery.application.dto.outputdto.ItemBasicOutDto;
+import com.brewery.application.dto.outputdto.ItemFullDetailsDto;
+import com.brewery.application.dto.outputdto.RatingOutDto;
 import com.brewery.application.entity.Item;
+import com.brewery.application.entity.Rating;
 import com.brewery.application.enums.FoodType;
 import com.brewery.application.repository.ItemRepository;
+import com.brewery.application.repository.RatingRepository;
 import com.brewery.application.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +25,31 @@ public class ItemServiceImpl implements ItemService {
     private ItemRepository itemRepository;
 
     @Autowired
+    private RatingRepository ratingRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
     @Override
-    public ItemOutDto createItem(ItemInDto item) {
+    public ItemBasicOutDto createItem(ItemInDto item) {
         Item item1=modelMapper.map(item,Item.class);
         Item saveItem=itemRepository.save(item1);
-        return modelMapper.map(saveItem,ItemOutDto.class);
+        return modelMapper.map(saveItem, ItemBasicOutDto.class);
     }
 
     @Override
-    public ItemOutDto getItem(UUID id) {
+    public ItemFullDetailsDto getItem(UUID id) {
+
         Item item=itemRepository.findById(id).orElseThrow(()->new RuntimeException("Item with id not found"));
-        return modelMapper.map(item,ItemOutDto.class);
+
+        List<Rating> ratings = ratingRepository.findRatingByItemId(item.getId());
+
+        List<RatingOutDto> ratingDto = ratings.stream().map(rating -> modelMapper.map(rating, RatingOutDto.class)).collect(Collectors.toList());
+
+        ItemFullDetailsDto itemDto = modelMapper.map(item, ItemFullDetailsDto.class);
+
+        itemDto.setRatings(ratingDto);
+
+        return itemDto;
     }
     public String postImage(MultipartFile image, UUID id){
         String s;
@@ -53,15 +70,34 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemOutDto> getItemByCategory(FoodType foodType) {
+    public List<ItemBasicOutDto> getItemByCategory(FoodType foodType) {
         List<Item> items=itemRepository.findByFoodType(foodType);
-        return items.stream().map(item ->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
+        return items.stream().map(item ->modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 
     @Override
-    public List<ItemOutDto> getAllItems() {
+    public List<ItemBasicOutDto> getByItemRating() {
+        List<Item> items = itemRepository.findByItemRatingAndFoodType(FoodType.BEER);
+        return items.stream().map(item-> modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<ItemBasicOutDto> getByOrderQuantity() {
+        List<Item> items = itemRepository.findByItemOrderedAndFoodType(FoodType.BEER);
+        return items.stream().map(item-> modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public ItemBasicOutDto getByName(String name) {
+        Item item=itemRepository.findByName(name);
+        return modelMapper.map(item, ItemBasicOutDto.class);
+    }
+
+    @Override
+    public List<ItemBasicOutDto> getAllItems() {
         List<Item> items=itemRepository.findAll();
-        return items.stream().map(item ->modelMapper.map(item, ItemOutDto.class)).collect(Collectors.toList());
+        return items.stream().map(item ->modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
 
     }
     public byte[] getImage(@PathVariable UUID id){
@@ -79,17 +115,27 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemOutDto updateItem(ItemInDto item) {
+    public ItemBasicOutDto updateItem(ItemInDto item) {
         Item item1=modelMapper.map(item,Item.class);
         Item existingItem=itemRepository.findById(item1.getId()).orElseThrow(()->new RuntimeException("Item with id not found"));
         modelMapper.map(item1,existingItem);
         Item saveItem=itemRepository.save(existingItem);
-        return modelMapper.map(saveItem,ItemOutDto.class);
+        return modelMapper.map(saveItem, ItemBasicOutDto.class);
     }
 
     @Override
-    public ItemOutDto patchItem(ItemInDto item) {
+    public ItemBasicOutDto patchItem(ItemInDto item) {
         return null;
+    }
+
+    @Override
+    public ItemBasicOutDto itemOrderedMore(){
+        return modelMapper.map(itemRepository.findByItemCount(), ItemBasicOutDto.class);
+    }
+
+    @Override
+    public ItemBasicOutDto itemWithMoreRating() {
+        return modelMapper.map(itemRepository.findByMoreRating(), ItemBasicOutDto.class);
     }
 
     @Override

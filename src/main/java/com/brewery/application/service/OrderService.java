@@ -12,9 +12,9 @@ import java.util.UUID;
 
 public interface OrderService{
 
-    public InvoiceOutDto initiatePayment(UUID orderId);
+    public InvoiceOutDto initiatePayment(Order order);
 
-    public OrderOutDto createOrder(OrderInDto input, LocalDateTime orderedTime);
+    public InvoiceOutDto createOrder(OrderInDto input);
 
     public OrderOutDto getOrder(UUID id);
 
