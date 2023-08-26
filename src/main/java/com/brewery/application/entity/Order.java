@@ -36,4 +36,7 @@ public class Order {
 
     @OneToMany
     private List<OrderItem> foodItems;
+
+    @ManyToOne
+    private Store store;
 }

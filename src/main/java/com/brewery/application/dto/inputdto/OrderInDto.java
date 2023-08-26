@@ -14,5 +14,7 @@ public class OrderInDto {
 
     private UUID addressId;
 
+    private UUID storeId;
+
     private List<OrderItemInDto> items;
 }

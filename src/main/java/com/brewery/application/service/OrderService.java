@@ -30,4 +30,8 @@ public interface OrderService{
 
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus);
 
+    public List<Order> getOrderByUserIdAndFoodItemsItemId(UUID userId,UUID itemId);
+
+    public OrderOutDto updateStatus(UUID orderId,OrderStatus orderStatus);
+
 }

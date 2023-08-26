@@ -9,7 +9,6 @@ import com.brewery.application.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,11 +18,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
+    @PostMapping()
     public InvoiceOutDto createOrder(@RequestBody OrderInDto input){
-
-        InvoiceOutDto order = orderService.createOrder(input);
-        return order;
+        return orderService.createOrder(input);
     }
 
     @GetMapping("{id}")
@@ -62,8 +59,8 @@ public class OrderController {
         return orderService.getOrderByUser(id);
 
     }
-    @GetMapping("/user/{orderStatus}")
-    public List<OrderOutDto> getOrderByStatus(@PathVariable OrderStatus orderStatus){
+    @GetMapping("/status")
+    public List<OrderOutDto> getOrderByStatus(@RequestParam OrderStatus orderStatus){
 
         return orderService.getOrderByStatus(orderStatus);
     }
@@ -73,6 +70,16 @@ public class OrderController {
 
         return orderService.initiatePayment(order);
 
+    }
+
+    @GetMapping("/{userId}/{itemId}")
+    public List<Order> getOrderByUserIdAndFoodItemsItemId(@PathVariable UUID userId,@PathVariable UUID itemId){
+        return orderService.getOrderByUserIdAndFoodItemsItemId(userId, itemId);
+    }
+
+    @PostMapping("status/{orderId}")
+    public OrderOutDto updateStatus(@PathVariable UUID orderId,@RequestParam OrderStatus orderStatus){
+        return orderService.updateStatus(orderId, orderStatus);
     }
 
 }

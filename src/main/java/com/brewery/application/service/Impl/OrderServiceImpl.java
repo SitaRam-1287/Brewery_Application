@@ -40,6 +40,9 @@ public class OrderServiceImpl implements OrderService{
     private OrderItemRepository orderItemRepository;
 
     @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -60,6 +63,8 @@ public class OrderServiceImpl implements OrderService{
         }
         Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new RuntimeException());
         AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
+        Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new RuntimeException("Store with id not found"));
+        order.setStore(store);
         order.setFoodItems(foodItems1);
         order.setUser(user);
         order.setOrderedTime(LocalDateTime.now());
@@ -86,7 +91,7 @@ public class OrderServiceImpl implements OrderService{
         invoice.setAmount(Amount);
         invoice.setGst(Amount*0.1);
         invoice.setDeliveryFee(40.0);
-        invoice.setTotalAmount(Amount*0.05+40.0);
+        invoice.setTotalAmount(Amount+Amount*0.05+40.0);
         invoice = invoiceRepository.save(invoice);
         order.setInvoice(invoice);
         orderRepository.save(order);
@@ -131,6 +136,19 @@ public class OrderServiceImpl implements OrderService{
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus) {
         List<Order> orders = orderRepository.findOrderByStatus(orderStatus);
         return orders.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Order> getOrderByUserIdAndFoodItemsItemId(UUID userId, UUID itemId) {
+        return orderRepository.findOrderByUserIdAndFoodItemsItemId(userId, itemId);
+    }
+
+    @Override
+    public OrderOutDto updateStatus(UUID orderId, OrderStatus orderStatus) {
+        Order order = orderRepository.findById(orderId).orElseThrow(RuntimeException::new);
+        order.setStatus(orderStatus);
+        order = orderRepository.save(order);
+        return convertEntityToDto(order);
     }
 
     public Order convertDtoToEntity(OrderInDto input){

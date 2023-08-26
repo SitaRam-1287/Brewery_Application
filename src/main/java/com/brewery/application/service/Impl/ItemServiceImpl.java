@@ -77,14 +77,14 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemBasicOutDto> getByItemRating() {
-        List<Item> items = itemRepository.findByItemRatingAndFoodType(FoodType.BEER);
+        List<Item> items = itemRepository.findByItemRatingAndFoodType(FoodType.CRAFT);
         return items.stream().map(item-> modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 
 
     @Override
     public List<ItemBasicOutDto> getByOrderQuantity() {
-        List<Item> items = itemRepository.findByItemOrderedAndFoodType(FoodType.BEER);
+        List<Item> items = itemRepository.findByItemOrderedAndFoodType(FoodType.CRAFT);
         return items.stream().map(item-> modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 

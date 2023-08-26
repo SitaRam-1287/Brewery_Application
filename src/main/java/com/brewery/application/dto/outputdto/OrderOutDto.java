@@ -18,6 +18,10 @@ public class OrderOutDto {
 
     private UUID userId;
 
+    private UUID storeId;
+
+    private String storeName;
+
     private String userFirstName;
 
     private String userLastName;
