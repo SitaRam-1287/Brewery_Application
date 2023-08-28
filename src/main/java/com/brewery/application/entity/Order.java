@@ -38,4 +38,6 @@ public class Order {
 
     @ManyToOne
     private Store store;
+
+    private Double totalAmount;
 }

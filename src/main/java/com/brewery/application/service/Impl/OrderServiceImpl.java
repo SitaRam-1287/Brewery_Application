@@ -104,6 +104,7 @@ public class OrderServiceImpl implements OrderService{
         invoice.setTotalAmount(Amount+Amount*0.05+40.0);
         invoice = invoiceRepository.save(invoice);
         order.setInvoice(invoice);
+        order.setTotalAmount(invoice.getTotalAmount());
         orderRepository.save(order);
         return modelMapper.map(invoice,InvoiceOutDto.class);
     }

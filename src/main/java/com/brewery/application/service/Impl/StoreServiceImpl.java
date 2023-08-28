@@ -54,8 +54,11 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public Store patchStore(Store storeInDto) {
-        return null;
+    public Store patchStore(Store store) {
+        Store store1=storeRepository.findById(store.getId()).orElseThrow(()->new RuntimeException("Store with id not found"));
+        store1.setName(store.getName());
+        storeRepository.save(store1);
+        return store1;
     }
 
     @Override
