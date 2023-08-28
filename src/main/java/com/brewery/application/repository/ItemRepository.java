@@ -12,20 +12,18 @@ import java.util.UUID;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, UUID> {
-    public List<Item> findByFoodType(FoodType foodType);
+    List<Item> findByFoodType(FoodType foodType);
 
-    @Query("SELECT p FROM Item p ORDER BY p.quantityOrdered DESC limit 9")
-    public Item findByItemCount();
+    @Query("SELECT i FROM Item i ORDER BY i.quantityOrdered DESC limit 8")
+    List<Item> findTopItemsByOrderedQuantity();
 
-    @Query("SELECT p FROM Item p ORDER BY p.rating DESC limit 9")
-    public Item findByMoreRating();
+    @Query("SELECT i FROM Item i ORDER BY i.rating DESC limit 8")
+    List<Item> findTopItemsByRating();
 
-    @Query("SELECT p FROM Item p where p.foodType = :foodType ORDER BY p.rating DESC")
-    public List<Item> findByItemRatingAndFoodType(@Param("foodType") FoodType foodType);
+    List<Item> findByFoodTypeOrderByRatingDesc(FoodType foodType);
 
-    @Query("SELECT p FROM Item p where p.foodType = :foodType ORDER BY p.quantityOrdered DESC")
-    public List<Item> findByItemOrderedAndFoodType(@Param("foodType") FoodType foodType);
+    List<Item> findByFoodTypeOrderByQuantityOrderedDesc(FoodType foodType);
 
-    public Item findByName(String name);
+    Item findByName(String name);
 
 }

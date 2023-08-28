@@ -25,7 +25,7 @@ public class ItemController {
         return itemService.createItem(item);
     }
 
-    @PostMapping(value = "/postImage/{id}",produces = MediaType.IMAGE_PNG_VALUE)
+    @PostMapping(value = "/postImage/{id}",produces = MediaType.IMAGE_JPEG_VALUE)
     private String postImage(@RequestBody MultipartFile image,@PathVariable UUID id){
         return itemService.postImage(image,id);
     }
@@ -41,11 +41,11 @@ public class ItemController {
     }
 
     @GetMapping("/mostOrdered")
-    private ItemBasicOutDto itemOrderedMore(){
+    private List<ItemBasicOutDto> itemOrderedMore(){
         return itemService.itemOrderedMore();
     }
     @GetMapping("/topRated")
-    private ItemBasicOutDto itemWithMoreRating(){
+    private List<ItemBasicOutDto> itemWithMoreRating(){
         return itemService.itemWithMoreRating();
     }
 

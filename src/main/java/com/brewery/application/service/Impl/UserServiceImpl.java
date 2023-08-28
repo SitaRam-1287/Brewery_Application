@@ -104,6 +104,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserOutDto updateAddress(Address address, UUID id) {
+        User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("ID not found"));
+        Address address1=addressRepository.save(address);
+        List<Address> addressList = user.getAddressList();
+        addressList.add(address1);
+        user.setAddressList(addressList);
+        user = userRepository.save(user);
+        return convertEntityToDto(user);
+    }
+
+    @Override
+    public List<AddressOutDto> getAddressList(UUID id) {
+        User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("user with id not found"));
+        List<Address> addressList=user.getAddressList();
+        return addressList.stream().map(address -> modelMapper.map(address,AddressOutDto.class)).collect(Collectors.toList());
+
+
+    }
+
+    @Override
     public UserOutDto updateUser(UserInDto input) {
         User user = convertDtoToEntity(input);
         User existingUser = userRepository.findById(user.getId()).orElseThrow();
@@ -117,10 +137,12 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
+
     @Override
     public List<UserOutDto> getAllUsers() {
         List<User> users = userRepository.findAll();
-        List<UserOutDto> userList = users.stream().map(user -> convertEntityToDto(user)).collect(Collectors.toList());
+        List<UserOutDto> userList = users.stream().map(this::convertEntityToDto).collect(Collectors.toList());
         return userList;
     }
 

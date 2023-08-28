@@ -2,6 +2,7 @@ package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
 import com.brewery.application.dto.outputdto.InvoiceOutDto;
+import com.brewery.application.dto.outputdto.OrderItemOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
@@ -54,7 +55,7 @@ public class OrderController {
     }
 
     @GetMapping("/user/{id}")
-    public List<OrderOutDto> getOrderByUser(@PathVariable UUID id){
+    public List<OrderItemOutDto> getOrderByUser(@PathVariable UUID id){
 
         return orderService.getOrderByUser(id);
 

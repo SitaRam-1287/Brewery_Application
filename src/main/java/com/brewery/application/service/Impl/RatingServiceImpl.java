@@ -6,6 +6,7 @@ import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Order;
 import com.brewery.application.entity.Rating;
 import com.brewery.application.entity.User;
+import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.repository.ItemRepository;
 import com.brewery.application.repository.OrderRepository;
 import com.brewery.application.repository.RatingRepository;
@@ -39,9 +40,10 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public RatingOutDto createRating(RatingInDto input) {
         Rating rating = new Rating();
-        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException());
-        Item item = itemRepository.findById(input.getItemId()).orElseThrow(()->new RuntimeException());
-        Order order = orderRepository.findById(input.getOrderId()).orElseThrow(()->new RuntimeException());
+        //List<Order> orders = orderRepository.findOrderByUserIdAndFoodItemsItemId(input.getUserId(),input.getItemId());
+        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new ElementNotFoundException("User With Given Id is Not Found"));
+        Item item = itemRepository.findById(input.getItemId()).orElseThrow(()->new ElementNotFoundException("Item With Given Id is Not Found"));
+        Order order = orderRepository.findById(input.getOrderId()).orElseThrow(()->new ElementNotFoundException("error"));
         if(item.getRating()!= null){
             item.setRating((item.getRating()+ input.getRating())/2);
         }else{
@@ -59,14 +61,14 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public RatingOutDto getRating(UUID id) {
-        Rating rating = ratingRepository.findById(id).orElseThrow(()->new RuntimeException("Rating with given id is not found"));
+        Rating rating = ratingRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Rating with given id is not found"));
         return convertEntityToDto(rating);
     }
 
     @Override
     public RatingOutDto updateRating(RatingInDto input) {
         Rating rating = convertDtoToEntity(input);
-        Rating existingRating = ratingRepository.findById(rating.getId()).orElseThrow(()->new RuntimeException("Rating with given id is not found"));
+        Rating existingRating = ratingRepository.findById(rating.getId()).orElseThrow(()->new ElementNotFoundException("Rating with given id is not found"));
         modelMapper.map(rating,existingRating);
         Rating currentRating = ratingRepository.save(existingRating);
         return convertEntityToDto(currentRating);
@@ -80,13 +82,12 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public List<RatingOutDto> getAllRatings() {
         List<Rating> ratings = ratingRepository.findAll();
-        List<RatingOutDto> ratingList = ratings.stream().map(rating -> convertEntityToDto(rating)).collect(Collectors.toList());
-        return ratingList;
+        return ratings.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     @Override
     public RatingOutDto deleteRating(UUID id) {
-        Rating rating = ratingRepository.findById(id).orElseThrow(() -> new RuntimeException("Rating not found with given Id"));
+        Rating rating = ratingRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Rating not found with given Id"));
         ratingRepository.delete(rating);
         return convertEntityToDto(rating);
     }
@@ -94,19 +95,19 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public List<RatingOutDto> getRatingByItemId(UUID id) {
         List<Rating> ratings = ratingRepository.findRatingByItemId(id);
-        return ratings.stream().map(rating->convertEntityToDto(rating)).collect(Collectors.toList());
+        return ratings.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<RatingOutDto> getRatingByOrderId(UUID id) {
         List<Rating> ratings = ratingRepository.findRatingByOrderId(id);
-        return ratings.stream().map(rating->convertEntityToDto(rating)).collect(Collectors.toList());
+        return ratings.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<RatingOutDto> getRatingByUserId(UUID id) {
         List<Rating> ratings = ratingRepository.findRatingByUserId(id);
-        return ratings.stream().map(rating->convertEntityToDto(rating)).collect(Collectors.toList());
+        return ratings.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 
 

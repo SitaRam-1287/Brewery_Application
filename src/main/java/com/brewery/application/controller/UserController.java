@@ -2,6 +2,7 @@ package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.LoginInputDto;
 import com.brewery.application.dto.inputdto.UserInDto;
+import com.brewery.application.dto.outputdto.AddressOutDto;
 import com.brewery.application.dto.outputdto.LoginOutputDto;
 import com.brewery.application.dto.outputdto.UserOutDto;
 import com.brewery.application.entity.Address;
@@ -40,10 +41,16 @@ public class UserController{
         return userService.updateUser(input);
     }
 
-    @PostMapping("/address")
-    public UserOutDto updateAddress(Address address,UUID id){
+    @PostMapping("/address/{id}")
+    public UserOutDto updateAddress(@RequestBody Address address,@PathVariable UUID id){
         return null;
     }
+    @GetMapping("/address/{id}")
+    public List<AddressOutDto> getAddressList(@PathVariable UUID id){
+        return userService.getAddressList(id);
+    }
+
+
 
     @PatchMapping
     public UserOutDto partialUpdateUser(UserInDto input){
@@ -54,6 +61,8 @@ public class UserController{
     public List<UserOutDto> getAllUsers(){
         return userService.getAllUsers();
     }
+
+
 
     @DeleteMapping("{id}")
     public UserOutDto deleteUser(@PathVariable UUID id){

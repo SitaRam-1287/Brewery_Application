@@ -19,5 +19,6 @@ public class OrderItem {
 
     @ManyToOne
     private Item item;
+
     private Integer quantity;
 }

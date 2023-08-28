@@ -4,9 +4,11 @@ import com.brewery.application.dto.inputdto.OrderInDto;
 import com.brewery.application.dto.inputdto.OrderItemInDto;
 import com.brewery.application.dto.outputdto.AddressOutDto;
 import com.brewery.application.dto.outputdto.InvoiceOutDto;
+import com.brewery.application.dto.outputdto.OrderItemOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.*;
 import com.brewery.application.enums.OrderStatus;
+import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.repository.*;
 import com.brewery.application.service.OrderService;
 import org.modelmapper.ModelMapper;
@@ -56,7 +58,13 @@ public class OrderServiceImpl implements OrderService{
            Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
            it.setItem(item1);
            it.setQuantity(item.getQuantity());
-           item1.setQuantityOrdered(item.getQuantity()+ item1.getQuantityOrdered());
+           if(item1.getQuantityOrdered()!=null){
+               item1.setQuantityOrdered(item.getQuantity()+ item1.getQuantityOrdered());
+           }
+           else{
+               item1.setQuantityOrdered(item.getQuantity());
+           }
+
            it = orderItemRepository.save(it);
            foodItems1.add(it);
 
@@ -75,9 +83,11 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderOutDto getOrder(UUID id) {
-        Order order = orderRepository.findById(id).orElseThrow(()->new RuntimeException("Order with given id is not found"));
+        Order order = orderRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
         return convertEntityToDto(order);
     }
+
+
 
     public InvoiceOutDto initiatePayment(Order order){
         Double Amount = 0.0;
@@ -127,9 +137,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderOutDto> getOrderByUser(UUID id) {
+    public List<OrderItemOutDto> getOrderByUser(UUID id) {
         List<Order> orders = orderRepository.findOrderByUserId(id);
-        return orders.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+        return orders.stream().map(order -> modelMapper.map(order, OrderItemOutDto.class)).collect(Collectors.toList());
     }
 
     @Override

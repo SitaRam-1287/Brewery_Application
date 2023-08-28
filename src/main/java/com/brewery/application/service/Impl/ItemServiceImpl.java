@@ -77,14 +77,14 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemBasicOutDto> getByItemRating() {
-        List<Item> items = itemRepository.findByItemRatingAndFoodType(FoodType.CRAFT);
+        List<Item> items = itemRepository.findByFoodTypeOrderByQuantityOrderedDesc(FoodType.CRAFT);
         return items.stream().map(item-> modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 
 
     @Override
     public List<ItemBasicOutDto> getByOrderQuantity() {
-        List<Item> items = itemRepository.findByItemOrderedAndFoodType(FoodType.CRAFT);
+        List<Item> items = itemRepository. findByFoodTypeOrderByRatingDesc(FoodType.CRAFT);
         return items.stream().map(item-> modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 
@@ -129,13 +129,15 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemBasicOutDto itemOrderedMore(){
-        return modelMapper.map(itemRepository.findByItemCount(), ItemBasicOutDto.class);
+    public List<ItemBasicOutDto> itemOrderedMore(){
+        List<Item> items = itemRepository.findTopItemsByOrderedQuantity();
+        return items.stream().map(item ->modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 
     @Override
-    public ItemBasicOutDto itemWithMoreRating() {
-        return modelMapper.map(itemRepository.findByMoreRating(), ItemBasicOutDto.class);
+    public List<ItemBasicOutDto> itemWithMoreRating() {
+        List<Item> items = itemRepository.findTopItemsByRating();
+        return items.stream().map(item ->modelMapper.map(item, ItemBasicOutDto.class)).collect(Collectors.toList());
     }
 
     @Override

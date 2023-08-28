@@ -1,7 +1,9 @@
 package com.brewery.application.service.Impl;
 
 
+import com.brewery.application.entity.Address;
 import com.brewery.application.entity.Store;
+import com.brewery.application.repository.AddressRepository;
 import com.brewery.application.repository.StoreRepository;
 import com.brewery.application.service.StoreService;
 import org.modelmapper.ModelMapper;
@@ -17,9 +19,16 @@ public class StoreServiceImpl implements StoreService {
     private StoreRepository storeRepository;
 
     @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
     @Override
     public Store postStore(Store store) {
+        Address address = new Address();
+        modelMapper.map(store.getLocation(),address);
+        address = addressRepository.save(address);
+        store.setLocation(address);
         Store store1=storeRepository.save(store);
         return store1;
     }
