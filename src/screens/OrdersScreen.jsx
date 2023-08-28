@@ -14,36 +14,35 @@ const OrdersScreen = () => {
   const [orders, setOrders] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedFoodItem, setSelectedFoodItem] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const ordersData = await get('/order/getAll');
+        const ordersData = await get('/order/user');
         setOrders(ordersData);
       } catch (error) {
         console.error('Error fetching orders:', error);
       }
     };
     fetchOrders();
-    console.log(orders);
   }, []);
 
-  const openModal = order => {
+  const openModal = (order, foodItem) => {
     setSelectedOrder(order);
+    setSelectedFoodItem(foodItem);
     setIsModalVisible(true);
   };
 
   const closeModal = () => {
     setSelectedOrder(null);
+    setSelectedFoodItem(null);
     setIsModalVisible(false);
   };
 
-  const renderOrderItem = ({item}) => {
-    console.log(
-      'food Items....................................................................................',
-      item.foodItems,
-    );
-    return (
+  const renderOrderItem = ({item}) => (
+    <TouchableOpacity
+      onPress={() => setSelectedOrder(selectedOrder === item ? null : item)}>
       <View style={styles.orderItem}>
         <Text style={{color: 'gray'}}>Ordered Date: {item.orderedTime}</Text>
         <Text style={{color: 'gray'}}>Total Price: ${item.totalPrice}</Text>
@@ -52,9 +51,25 @@ const OrdersScreen = () => {
           onPress={() => openModal(item)}>
           <Text style={styles.reviewButtonText}>Review</Text>
         </TouchableOpacity>
+        {selectedOrder === item && (
+          <FlatList
+            data={item.foodItems}
+            keyExtractor={(foodItem, index) => `${foodItem.id}-${index}`}
+            renderItem={({item: foodItem}) => (
+              <View style={styles.foodItem}>
+                <Text>{foodItem.name}</Text>
+                <TouchableOpacity
+                  style={styles.writeReviewButton}
+                  onPress={() => openModal(item, foodItem)}>
+                  <Text style={styles.writeReviewButtonText}>Write Review</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        )}
       </View>
-    );
-  };
+    </TouchableOpacity>
+  );
 
   return (
     <View>
@@ -62,13 +77,15 @@ const OrdersScreen = () => {
       <View style={styles.container}>
         <FlatList
           data={orders}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.id}
           renderItem={renderOrderItem}
         />
         <Modal visible={isModalVisible} transparent={true}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text>Review Item: {selectedOrder?.name}</Text>
+              <Text>
+                Review Item: {selectedFoodItem ? selectedFoodItem.name : ''}
+              </Text>
               {/* TODO: Add review input and star rating here */}
               <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
                 <Text style={styles.closeButtonText}>Close</Text>
@@ -93,12 +110,6 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderRadius: 8,
   },
-  orderItemRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 8,
-  },
   reviewButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
@@ -109,6 +120,23 @@ const styles = StyleSheet.create({
   },
   reviewButtonText: {
     color: '#fdab00',
+  },
+  foodItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  writeReviewButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'green',
+    borderRadius: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+  },
+  writeReviewButtonText: {
+    color: 'green',
   },
   modalContainer: {
     flex: 1,

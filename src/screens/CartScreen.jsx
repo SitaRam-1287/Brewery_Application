@@ -118,6 +118,7 @@ const CartScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
   },
   emptyCartContainer: {
     flex: 1,
@@ -147,14 +148,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fdab00',
     paddingLeft: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
   },
   activeTabButton: {
     backgroundColor: '#fdab00',
     borderColor: '#fdab00',
-    borderRadius: 15,
   },
   tabButtonText: {
     color: '#fdab00',
+    fontWeight: 'bold',
   },
   activeTabButtonText: {
     color: 'white',
@@ -170,6 +173,7 @@ const styles = StyleSheet.create({
   },
   selectAddressButtonText: {
     color: '#fdab00',
+    fontWeight: 'bold',
   },
   totalContainer: {
     borderTopWidth: 1,
@@ -183,13 +187,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   placeOrderButton: {
-    fontWeight: 'bold',
-    backgroundColor: '#fdba00',
+    backgroundColor: '#fdab00',
     padding: 15,
+    borderRadius: 5,
+    margin: 10,
+    alignItems: 'center',
   },
   placeOrderButtonText: {
     color: 'white',
-    textAlign: 'center',
     fontWeight: 'bold',
   },
 });

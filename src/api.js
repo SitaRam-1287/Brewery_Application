@@ -3,12 +3,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const BASE_URL = 'https://slick-groups-know.loca.lt';
 
 const setHeaders = async () => {
-  const loginData = await AsyncStorage.getItem('loginData');
+  const loginDataString = await AsyncStorage.getItem('loginData');
+  const loginData = JSON.parse(loginDataString);
   if (loginData) {
-    const {userId, accessToken} = JSON.parse(loginData);
     return {
-      userId: userId,
-      accessToken: accessToken,
+      userId: loginData.userId,
+      accessToken: loginData.accessToken,
       'Content-Type': 'application/json',
     };
   }
