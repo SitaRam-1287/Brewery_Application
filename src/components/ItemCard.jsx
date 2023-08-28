@@ -1,17 +1,25 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
 
-// Truncate function
 function truncate(str, n) {
   return str?.length > n ? str.substr(0, n - 1) + '...' : str;
 }
 
-export default function ItemCard({name, description, price, image}) {
-  const [quantity, setQuantity] = useState(0);
-  const navigation = useNavigation(); // Initialize navigation using the hook
+export default function ItemCard({id, name, description, price, image}) {
+  const [localQuantity, setLocalQuantity] = useState(0);
+  const selectedItems = useSelector(state => state.cartReducer.items);
 
+  useEffect(() => {
+    const selectedItem = selectedItems.find(item => item.id === id);
+    if (selectedItem) {
+      setLocalQuantity(selectedItem.quantity);
+    }
+  }, [selectedItems, id]);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const handleSeeDetails = () => {
     navigation.navigate('ItemDetails', {
       name,
@@ -22,16 +30,39 @@ export default function ItemCard({name, description, price, image}) {
   };
 
   const handleIncrease = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
+    setLocalQuantity(prevQuantity => prevQuantity + 1);
+    const item = {id};
+
+    dispatch({type: 'INCREASE_QUANTITY', payload: item});
   };
 
   const handleDecrease = () => {
-    if (quantity > 0) {
-      setQuantity(prevQuantity => prevQuantity - 1);
+    if (localQuantity - 1 > 0) {
+      setLocalQuantity(prevQuantity => prevQuantity - 1);
+      const item = {id};
+
+      dispatch({type: 'DECREASE_QUANTITY', payload: item});
+    } else {
+      setLocalQuantity(prevQuantity => prevQuantity - 1);
+      const item = {id};
+      dispatch({type: 'REMOVE_ITEM_FROM_CART', payload: item});
     }
   };
 
-  const truncatedDescription = truncate(description, 50); // Adjust the length as needed
+  const handleAddToCart = () => {
+    setLocalQuantity(prevQuantity => prevQuantity + 1);
+    const item = {
+      id,
+      name,
+      description,
+      image,
+      price,
+      quantity: localQuantity + 1,
+    };
+    dispatch({type: 'ADD_TO_CART', payload: item});
+  };
+
+  const truncatedDescription = truncate(description, 50);
 
   return (
     <View style={styles.card}>
@@ -50,11 +81,11 @@ export default function ItemCard({name, description, price, image}) {
         </Text>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>Rs. {price}</Text>
-          <View>
+          <View style={styles.buttonContainer}>
             <View style={styles.quantityContainer}>
-              {quantity === 0 ? (
+              {localQuantity === 0 ? (
                 <TouchableOpacity
-                  onPress={handleIncrease}
+                  onPress={handleAddToCart}
                   style={styles.addButton}>
                   <Text style={styles.addButtonLabel}>Add</Text>
                 </TouchableOpacity>
@@ -65,7 +96,7 @@ export default function ItemCard({name, description, price, image}) {
                     style={styles.quantityButton}>
                     <Text style={styles.quantityText}>-</Text>
                   </TouchableOpacity>
-                  <Text style={styles.quantity}>{quantity}</Text>
+                  <Text style={styles.quantity}>{localQuantity}</Text>
                   <TouchableOpacity
                     onPress={handleIncrease}
                     style={styles.quantityButton}>
@@ -92,11 +123,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     marginBottom: 10,
-    elevation: 4,
+    marginTop: 5,
+    elevation: 5,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 118,
+    height: 118,
     borderRadius: 10,
   },
   info: {
@@ -127,18 +159,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 20,
-    backgroundColor: '#fdba00', // Active color
+    backgroundColor: '#fdba00',
     paddingVertical: 5,
     paddingHorizontal: 12,
   },
   quantityButton: {
     borderRadius: 20,
+    padding: 3,
   },
   addButton: {
     borderRadius: 20,
-    backgroundColor: '#fdba00', // Active color
-    paddingHorizontal: 12,
-    paddingVertical: 5,
+    backgroundColor: '#fdba00',
+    paddingHorizontal: 16,
+    paddingVertical: 8.5,
   },
   addButtonLabel: {
     color: 'white',
@@ -146,10 +179,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: -3.2,
     marginBottom: -2.1,
-  },
-  disabledButton: {
-    display: 'none',
-    margin: 10,
   },
   quantity: {
     paddingHorizontal: 10,
@@ -162,6 +191,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   detailsButtonText: {
+    marginTop: 3,
     color: 'gray',
+    fontSize: 13,
+    marginLeft: 6,
   },
 });

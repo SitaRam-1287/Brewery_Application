@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder'; // Import SkeletonPlaceholder
-import { get } from '../api';
+import React, {useState, useEffect} from 'react';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {get} from '../api';
 import ItemCard from './ItemCard';
+import {dummyDishes} from '../constants';
 
-function Row({ title, fetchURL }) {
+function Row({title, fetchURL}) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,11 +20,12 @@ function Row({ title, fetchURL }) {
       }
     }
     fetchData();
-  }, []);
+  }, [fetchURL]);
 
-  const renderRowItem = ({ item }) => (
-    <View style={{ marginRight: 15, marginLeft: 3 }}>
+  const renderRowItem = ({item}) => (
+    <View style={{marginRight: 15, marginLeft: 3}}>
       <ItemCard
+        id={item.id}
         name={item.name}
         description={item.details}
         price={item.price}
@@ -37,20 +39,20 @@ function Row({ title, fetchURL }) {
       <Text style={styles.rowTitle}>{title}</Text>
       {isLoading ? (
         <SkeletonPlaceholder>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ width: 100, height: 100, borderRadius: 10 }} />
-            <View style={{ marginLeft: 10, flex: 1 }}>
-              <View style={{ height: 20, width: '80%' }} />
-              <View style={{ marginTop: 6, height: 18, width: '60%' }} />
-              <View style={{ marginTop: 6, height: 18, width: '40%' }} />
+          <View style={{flexDirection: 'row'}}>
+            <View style={{width: 100, height: 100, borderRadius: 10}} />
+            <View style={{marginLeft: 10, flex: 1}}>
+              <View style={{height: 20, width: '80%'}} />
+              <View style={{marginTop: 6, height: 18, width: '60%'}} />
+              <View style={{marginTop: 6, height: 18, width: '40%'}} />
               <View
                 style={{
                   marginTop: 10,
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}>
-                <View style={{ height: 20, width: '25%' }} />
-                <View style={{ height: 30, width: '30%' }} />
+                <View style={{height: 20, width: '25%'}} />
+                <View style={{height: 30, width: '30%'}} />
               </View>
             </View>
           </View>

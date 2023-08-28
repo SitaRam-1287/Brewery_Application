@@ -6,7 +6,7 @@ const Navbar = () => {
   const navigation = useNavigation();
 
   const handleSearch = () => {
-    navigation.navigate('SearchResults');
+    navigation.navigate('Search');
   };
 
   const handleLogoPress = () => {

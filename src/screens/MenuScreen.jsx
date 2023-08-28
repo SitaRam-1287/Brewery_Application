@@ -13,7 +13,6 @@ const MenuScreen = () => {
   };
 
   useEffect(() => {
-    // Select the first category when the page is loaded
     if (selectedCategory === '' && categories.length > 0) {
       setSelectedCategory(categories[0].name);
     }

@@ -48,10 +48,11 @@ const Categories = ({onSelectCategory, activeCategory}) => {
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
-    marginBottom: 25,
+    marginBottom: 5,
     paddingHorizontal: 15,
     paddingBottom: 25,
     paddingTop: 20,
+    elevation: 5,
   },
   categoryContainer: {
     marginRight: 12,
