@@ -173,13 +173,12 @@ public class OrderServiceImpl implements OrderService{
             report.merge(date, order.getTotalAmount(), Double::sum);
             dailyCount.merge(date, 1, Integer::sum);
         }
-        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
-        for(LocalDate key : report.keySet()){
-            Double
-            reportStatus.put(key,List.of())
-            System.out.println(key+" "+);
-            System.out.println(key+" "+dailyCount.get(key));
-        }
+//        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
+//        for(LocalDate key : report.keySet()){
+//            reportStatus.put(key,List.of());
+//            System.out.println(key+" "+);
+//            System.out.println(key+" "+dailyCount.get(key));
+//        }
     }
 
     public Order convertDtoToEntity(OrderInDto input){
