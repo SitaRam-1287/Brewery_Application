@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class InvoiceInDto {
 
-
     private Double amount;
 
     private Double deliveryFee;

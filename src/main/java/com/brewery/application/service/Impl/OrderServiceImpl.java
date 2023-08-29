@@ -87,6 +87,17 @@ public class OrderServiceImpl implements OrderService{
         return convertEntityToDto(order);
     }
 
+    @Override
+    public InvoiceOutDto getInvoice(UUID orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
+        return modelMapper.map(order.getInvoice(),InvoiceOutDto.class);
+    }
+
+    @Override
+    public OrderStatus getStatus(UUID uuid) {
+        Order order = orderRepository.findById(uuid).orElseThrow(()-> new ElementNotFoundException("Order with given id is not found"));
+        return order.getStatus();
+    }
 
 
     public InvoiceOutDto initiatePayment(Order order){

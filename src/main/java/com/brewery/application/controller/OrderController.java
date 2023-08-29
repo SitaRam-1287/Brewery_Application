@@ -75,11 +75,22 @@ public class OrderController {
         return orderService.getOrderByStatus(orderStatus);
     }
 
+    @GetMapping("/getStatus/{uuid}")
+    public OrderStatus getStatus(@PathVariable UUID uuid){
+
+        return orderService.getStatus(uuid);
+    }
+
     @GetMapping("/payment/{id}")
     public InvoiceOutDto initiatePayment(Order order){
 
         return orderService.initiatePayment(order);
 
+    }
+
+    @GetMapping("/invoice/{orderId}")
+    public InvoiceOutDto getInvoice(@PathVariable UUID orderId){
+        return orderService.getInvoice(orderId);
     }
 
     @GetMapping("/{userId}/{itemId}")
