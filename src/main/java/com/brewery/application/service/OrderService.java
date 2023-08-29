@@ -6,6 +6,7 @@ import com.brewery.application.dto.outputdto.OrderItemOutDto;
 import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,8 +18,8 @@ public interface OrderService{
     public InvoiceOutDto createOrder(OrderInDto input);
 
     public OrderOutDto getOrder(UUID id);
-
-
+    public InvoiceOutDto getInvoice(UUID orderId);
+    public OrderStatus getStatus(UUID uuid);
     public OrderOutDto updateOrder(OrderInDto input);
 
     public OrderOutDto partialUpdateOrder(OrderInDto input);
