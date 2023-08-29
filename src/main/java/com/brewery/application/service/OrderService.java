@@ -7,6 +7,8 @@ import com.brewery.application.dto.outputdto.OrderOutDto;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +30,7 @@ public interface OrderService{
     public OrderOutDto deleteOrder(UUID id);
 
     public List<OrderItemOutDto> getOrderByUser(UUID id);
-    public void getDailyReport();
+    public HashMap<LocalDate,List<Double>> getDailyReport();
 
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus);
 

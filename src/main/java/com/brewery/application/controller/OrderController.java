@@ -10,6 +10,9 @@ import com.brewery.application.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +37,11 @@ public class OrderController {
     public OrderOutDto updateOrder(OrderInDto input){
 
         return orderService.updateOrder(input);
+    }
+
+    @GetMapping("/dailyReport")
+    public AbstractMap<LocalDate,List<Double>> getDailyReport(){
+        return orderService.getDailyReport();
     }
 
 
@@ -79,7 +87,7 @@ public class OrderController {
         return orderService.getOrderByUserIdAndFoodItemsItemId(userId, itemId);
     }
 
-    @PostMapping("status/{orderId}")
+    @PostMapping("/{orderId}")
     public OrderOutDto updateStatus(@PathVariable UUID orderId,@RequestParam OrderStatus orderStatus){
         return orderService.updateStatus(orderId, orderStatus);
     }

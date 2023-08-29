@@ -15,11 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,6 +49,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public InvoiceOutDto createOrder(OrderInDto input) {
         Order order = new Order();
+        System.out.println(input.getUserId());
         User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
@@ -71,14 +69,14 @@ public class OrderServiceImpl implements OrderService{
            foodItems1.add(it);
 
         }
-        Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new RuntimeException());
-        AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
-        Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new RuntimeException("Store with id not found"));
-        order.setStore(store);
+        //Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new RuntimeException());
+        //AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
+        //Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new RuntimeException("Store with id not found"));
+        //order.setStore(store);
         order.setFoodItems(foodItems1);
         order.setUser(user);
         order.setOrderedTime(LocalDateTime.now());
-        order.setAddress(address);
+        //order.setAddress(address);
         order = orderRepository.save(order);
         return initiatePayment(order);
     }
@@ -164,7 +162,7 @@ public class OrderServiceImpl implements OrderService{
         return convertEntityToDto(order);
     }
 
-    public void getDailyReport(){
+    public HashMap<LocalDate, List<Double>> getDailyReport(){
         List<Order> orders = orderRepository.findAll();
         HashMap<LocalDate,Double> report = new HashMap<>();
         HashMap<LocalDate,Integer> dailyCount = new HashMap<>();
@@ -173,12 +171,13 @@ public class OrderServiceImpl implements OrderService{
             report.merge(date, order.getTotalAmount(), Double::sum);
             dailyCount.merge(date, 1, Integer::sum);
         }
-//        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
-//        for(LocalDate key : report.keySet()){
-//            reportStatus.put(key,List.of());
-//            System.out.println(key+" "+);
-//            System.out.println(key+" "+dailyCount.get(key));
-//        }
+        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
+        for(LocalDate key : report.keySet()){
+            Double amount = report.get(key);
+            Integer count = dailyCount.get(key);
+            reportStatus.put(key,List.of(count.doubleValue(),amount));
+        }
+        return reportStatus;
     }
 
     public Order convertDtoToEntity(OrderInDto input){

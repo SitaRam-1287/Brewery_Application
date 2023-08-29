@@ -9,8 +9,11 @@ import com.brewery.application.dto.outputdto.LoginOutputDto;
 import com.brewery.application.dto.outputdto.SignInFireBaseOutput;
 import com.brewery.application.dto.outputdto.UserOutDto;
 import com.brewery.application.entity.Address;
+import com.brewery.application.entity.Store;
 import com.brewery.application.entity.User;
+import com.brewery.application.enums.Role;
 import com.brewery.application.repository.AddressRepository;
+import com.brewery.application.repository.StoreRepository;
 import com.brewery.application.repository.UserRepository;
 import com.brewery.application.service.FireBaseService;
 import com.brewery.application.service.UserService;
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService {
     private AddressRepository addressRepository;
 
     @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     private static final String FIREBASE_URL="https://identitytoolkit.googleapis.com/v1/accounts";
@@ -49,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserOutDto createUser(UserInDto input) {
+        System.out.println(input.getPhoneNum());
         User user = convertDtoToEntity(input);
         UserInputDto userInput = new UserInputDto();
         userInput.setEmail(user.getEmail());
@@ -60,14 +67,17 @@ public class UserServiceImpl implements UserService {
         List<AddressInDto> address = input.getAddressList();
         List<Address> addressList = new ArrayList<>();
         List<AddressOutDto> addressList2  = new ArrayList<>();
+        if(address!=null){
         for(AddressInDto address1 : address){
             Address address2 = modelMapper.map(address1,Address.class);
             address2 = addressRepository.save(address2);
             addressList.add(address2);
             addressList2.add(modelMapper.map(address2,AddressOutDto.class));
-        }
+        }}
         user.setAddressList(addressList);
+        user.setRole(Role.USER);
         user = userRepository.save(user);
+        System.out.println(user.getPhoneNum());
         UserOutDto userOutDto = convertEntityToDto(user);
         userOutDto.setAddressList(addressList2);
         return userOutDto;

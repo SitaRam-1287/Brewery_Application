@@ -31,8 +31,8 @@ public class UserController{
     }
 
     @GetMapping()
-    public UserOutDto getUser(@RequestHeader String userId){
-        return userService.getUser(UUID.fromString(userId));
+    public UserOutDto getUser(@RequestHeader UUID userId){
+        return userService.getUser(userId);
     }
 
     @PutMapping
