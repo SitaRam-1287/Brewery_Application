@@ -45,6 +45,7 @@ public class OrderController {
 
     @GetMapping("/getAll")
     public List<OrderOutDto> getAllOrders(){
+        orderService.getDailyReport();
         return orderService.getAllOrders();
     }
 
@@ -54,10 +55,10 @@ public class OrderController {
         return orderService.deleteOrder(id);
     }
 
-    @GetMapping("/user/{id}")
-    public List<OrderItemOutDto> getOrderByUser(@PathVariable UUID id){
+    @GetMapping("/user")
+    public List<OrderItemOutDto> getOrderByUser(@RequestHeader UUID userId){
 
-        return orderService.getOrderByUser(id);
+        return orderService.getOrderByUser(userId);
 
     }
     @GetMapping("/status")

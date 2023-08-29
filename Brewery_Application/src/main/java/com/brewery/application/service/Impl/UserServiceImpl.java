@@ -88,12 +88,16 @@ public class UserServiceImpl implements UserService {
         ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.POST,httpEntity,String.class);
         String body = exchange.getBody();
         Gson gson = new Gson();
+
+        User user = userRepository.findByEmail(input.getEmail());
         SignInFireBaseOutput signInFireBaseOutput = gson.fromJson(body,SignInFireBaseOutput.class);
 
         LoginOutputDto loginOutputDto = new LoginOutputDto();
         loginOutputDto.setAccessToken(signInFireBaseOutput.getIdToken());
         loginOutputDto.setRefreshToken(signInFireBaseOutput.getRefreshToken());
         loginOutputDto.setExpiresIn(signInFireBaseOutput.getExpiresIn());
+        loginOutputDto.setUserId(user.getId());
+        loginOutputDto.setUserName(user.getFirstName()+" "+user.getLastName());
         return loginOutputDto;
     }
 

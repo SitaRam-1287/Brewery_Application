@@ -15,10 +15,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.text.DateFormatSymbols;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.time.ZoneOffset;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -95,11 +97,11 @@ public class OrderServiceImpl implements OrderService{
         List<OrderItem> foodItems = order.getFoodItems();
         for(OrderItem foodItem : foodItems){
             Item item = foodItem.getItem();
-            Amount+=item.getPrice();
+            Amount+=item.getPrice()*foodItem.getQuantity();
         }
         Invoice invoice = new Invoice();
         invoice.setAmount(Amount);
-        invoice.setGst(Amount*0.1);
+        invoice.setGst(Amount*0.05);
         invoice.setDeliveryFee(40.0);
         invoice.setTotalAmount(Amount+Amount*0.05+40.0);
         invoice = invoiceRepository.save(invoice);
@@ -160,6 +162,24 @@ public class OrderServiceImpl implements OrderService{
         order.setStatus(orderStatus);
         order = orderRepository.save(order);
         return convertEntityToDto(order);
+    }
+
+    public void getDailyReport(){
+        List<Order> orders = orderRepository.findAll();
+        HashMap<LocalDate,Double> report = new HashMap<>();
+        HashMap<LocalDate,Integer> dailyCount = new HashMap<>();
+        for(Order order : orders){
+            LocalDate date = order.getOrderedTime().toLocalDate();
+            report.merge(date, order.getTotalAmount(), Double::sum);
+            dailyCount.merge(date, 1, Integer::sum);
+        }
+        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
+        for(LocalDate key : report.keySet()){
+            Double
+            reportStatus.put(key,List.of())
+            System.out.println(key+" "+);
+            System.out.println(key+" "+dailyCount.get(key));
+        }
     }
 
     public Order convertDtoToEntity(OrderInDto input){

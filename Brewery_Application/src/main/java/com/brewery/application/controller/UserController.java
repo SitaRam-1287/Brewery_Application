@@ -30,9 +30,9 @@ public class UserController{
         return userService.login(loginInputDto);
     }
 
-    @GetMapping("{id}")
-    public UserOutDto getUser(@PathVariable UUID id){
-        return userService.getUser(id);
+    @GetMapping()
+    public UserOutDto getUser(@RequestHeader String userId){
+        return userService.getUser(UUID.fromString(userId));
     }
 
     @PutMapping

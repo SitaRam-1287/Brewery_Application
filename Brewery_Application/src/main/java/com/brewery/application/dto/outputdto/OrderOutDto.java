@@ -3,6 +3,7 @@ package com.brewery.application.dto.outputdto;
 import com.brewery.application.entity.Address;
 import com.brewery.application.entity.Item;
 import com.brewery.application.entity.OrderItem;
+import com.brewery.application.enums.OrderStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -29,4 +30,6 @@ public class OrderOutDto {
     private AddressOutDto  address;
 
     private List<OrderItem> foodItems;
+
+    private OrderStatus status;
 }

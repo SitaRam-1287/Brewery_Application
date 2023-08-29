@@ -28,6 +28,7 @@ public interface OrderService{
     public OrderOutDto deleteOrder(UUID id);
 
     public List<OrderItemOutDto> getOrderByUser(UUID id);
+    public void getDailyReport();
 
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus);
 
