@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,14 +32,19 @@ public class User {
     @Column
     private String email;
 
-    @Column
-    private String password;
 
     @Column
     private String phoneNum;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Address> addressList;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private String image;
+
+
+    private LocalDate dateOfBirth;
 
 
     @Enumerated(EnumType.STRING)

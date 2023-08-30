@@ -2,6 +2,8 @@ package com.brewery.application.dto.inputdto;
 
 import com.brewery.application.entity.Address;
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.util.List;
 import com.brewery.application.enums.Role;
 
@@ -19,6 +21,8 @@ public class UserInDto {
     private String phoneNum;
 
     private List<AddressInDto> addressList;
+
+    private LocalDate dateOfBirth;
 
     private Role role;
 }

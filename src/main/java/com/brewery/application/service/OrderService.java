@@ -16,8 +16,7 @@ import java.util.UUID;
 public interface OrderService{
 
     public InvoiceOutDto initiatePayment(Order order);
-
-    public InvoiceOutDto createOrder(OrderInDto input);
+    public InvoiceOutDto createOrder(UUID userId,OrderInDto input);
 
     public OrderOutDto getOrder(UUID id);
     public InvoiceOutDto getInvoice(UUID orderId);

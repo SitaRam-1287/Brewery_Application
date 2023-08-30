@@ -4,14 +4,11 @@ import com.brewery.application.dto.inputdto.AddressInDto;
 import com.brewery.application.dto.inputdto.LoginInputDto;
 import com.brewery.application.dto.inputdto.UserInDto;
 import com.brewery.application.dto.inputdto.UserInputDto;
-import com.brewery.application.dto.outputdto.AddressOutDto;
-import com.brewery.application.dto.outputdto.LoginOutputDto;
-import com.brewery.application.dto.outputdto.SignInFireBaseOutput;
-import com.brewery.application.dto.outputdto.UserOutDto;
+import com.brewery.application.dto.outputdto.*;
 import com.brewery.application.entity.Address;
-import com.brewery.application.entity.Store;
 import com.brewery.application.entity.User;
 import com.brewery.application.enums.Role;
+import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.repository.AddressRepository;
 import com.brewery.application.repository.StoreRepository;
 import com.brewery.application.repository.UserRepository;
@@ -27,7 +24,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,6 +43,9 @@ public class UserServiceImpl implements UserService {
     private StoreRepository storeRepository;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     private static final String FIREBASE_URL="https://identitytoolkit.googleapis.com/v1/accounts";
@@ -56,10 +58,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserOutDto createUser(UserInDto input) {
         System.out.println(input.getPhoneNum());
+        int age = LocalDate.now().getYear() - input.getDateOfBirth().getYear();
+        if(age<21){
+            throw new ElementNotFoundException("Access Restricted for users under age 18");
+        }
         User user = convertDtoToEntity(input);
         UserInputDto userInput = new UserInputDto();
         userInput.setEmail(user.getEmail());
-        userInput.setPassword(user.getPassword());
+        userInput.setPassword(input.getPassword());
         userInput.setName(user.getFirstName()+" "+user.getLastName());
         UserRecord userRecord = fireBaseService.createInFireBase(userInput);
         user.setFireBaseId(userRecord.getUid());
@@ -112,9 +118,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserOutDto getUser(UUID id) {
+    public UserFullDetailsDto getUser(UUID id) {
         User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("User with given id is not found"));
-        return convertEntityToDto(user);
+        return modelMapper.map(user,UserFullDetailsDto.class);
+    }
+
+    @Override
+    public String verifyEmail(UUID userId) {
+        User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("User with given id is not found"));
+        return emailService.sendEmail(user.getEmail());
+    }
+
+    @Override
+    public byte[] postImage(UUID id, MultipartFile image) {
+        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("User with given id is not found"));
+        try {
+            byte[] arr = image.getBytes();
+            String s = Base64.getEncoder().encodeToString(arr);
+            user.setImage(s);
+            userRepository.save(user);
+            return arr;
+        }
+        catch(Exception e){
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public boolean verifyOtp(String otp){
+        return emailService.verifyOtp(otp);
     }
 
     @Override
@@ -122,8 +154,13 @@ public class UserServiceImpl implements UserService {
         User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("ID not found"));
         Address address1=addressRepository.save(address);
         List<Address> addressList = user.getAddressList();
-        addressList.add(address1);
-        user.setAddressList(addressList);
+        if(addressList!=null){
+            addressList.add(address1);
+            user.setAddressList(addressList);
+        }
+        else{
+            user.setAddressList(List.of(address1));
+        }
         user = userRepository.save(user);
         return convertEntityToDto(user);
     }

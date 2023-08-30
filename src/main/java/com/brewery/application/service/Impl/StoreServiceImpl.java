@@ -35,22 +35,19 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Store getStoreById(UUID id) {
-        Store store=storeRepository.findById(id).orElseThrow(()->new RuntimeException("Store with id not found"));
-        return store;
+        return storeRepository.findById(id).orElseThrow(()->new RuntimeException("Store with id not found"));
     }
 
     @Override
     public List<Store> getAllStore() {
-        List<Store> stores=storeRepository.findAll();
-        return stores;
+        return storeRepository.findAll();
     }
 
     @Override
     public Store updateStore(Store store) {
         Store store1=storeRepository.findById(store.getId()).orElseThrow(()->new RuntimeException("Store with id not found"));
         modelMapper.map(store1,store);
-        Store store2=storeRepository.save(store1);
-        return store2;
+        return storeRepository.save(store1);
     }
 
     @Override

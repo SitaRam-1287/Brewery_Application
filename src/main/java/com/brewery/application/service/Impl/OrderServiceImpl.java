@@ -47,10 +47,10 @@ public class OrderServiceImpl implements OrderService{
     private ModelMapper modelMapper;
 
     @Override
-    public InvoiceOutDto createOrder(OrderInDto input) {
+    public InvoiceOutDto createOrder(UUID userId,OrderInDto input) {
         Order order = new Order();
         System.out.println(input.getUserId());
-        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+        User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("Item with given id is not found"));
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
         for(OrderItemInDto item : foodItems){

@@ -5,30 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ab4c0e8-e664-495f-9911-b822e1d0b421" name="Changes" comment="">
-<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/UserFullDetailsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/RatingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/RatingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/ItemInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/ItemInDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/RatingInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/RatingInDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/UserInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/UserInDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemBasicOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemBasicOutDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/RatingOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/RatingOutDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Rating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Rating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/RatingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/StoreServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/OrderService.java" afterDir="false" />
-=======
-      <change afterPath="$PROJECT_DIR$/../AppData/Local/Google/Chrome/User Data/Default/CRXTelemetry/CRXTelemetry_0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AppData/Local/Google/Chrome/User Data/Default/Preferences" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AppData/Local/JetBrains/IdeaIC2022.3/compile-server/brewery_application_4c3fdfc9/ustamp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../AppData/Local/Microsoft/TokenBroker/Cache/5a2a7058cf8d1e56c20e6b19a7c48eb2386d141b.tbres" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/InvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/InvoiceInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/InvoiceInDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/RatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/RatingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
->>>>>>> 9af5a97840dd14e8ca07056651e8dd3e358dbdba
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +46,8 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -71,7 +65,7 @@
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;sitaram-dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/Downloads/rentals&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
@@ -80,7 +74,7 @@
   <component name="RunManager" selected="Application.Application">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.brewery.application.Application" />
-      <module name="Brewery_Application" />
+      <module name="application" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.brewery.application.*" />
@@ -97,6 +91,7 @@
         <option name="myRunnerSettings" />
         <option name="myRunnerParameters">
           <MavenRunnerParameters>
+            <option name="cmdOptions" />
             <option name="profiles">
               <set />
             </option>
@@ -106,6 +101,9 @@
             <option name="pomFileName" />
             <option name="profilesMap">
               <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
             </option>
             <option name="resolveToWorkspace" value="false" />
             <option name="workingDirPath" value="$PROJECT_DIR$" />

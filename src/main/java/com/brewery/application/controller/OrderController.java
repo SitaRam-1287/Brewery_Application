@@ -23,8 +23,8 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping()
-    public InvoiceOutDto createOrder(@RequestBody OrderInDto input){
-        return orderService.createOrder(input);
+    public InvoiceOutDto createOrder(@RequestHeader UUID userId,@RequestBody OrderInDto input){
+        return orderService.createOrder(userId,input);
     }
 
     @GetMapping("{id}")
@@ -93,8 +93,8 @@ public class OrderController {
         return orderService.getInvoice(orderId);
     }
 
-    @GetMapping("/{userId}/{itemId}")
-    public List<Order> getOrderByUserIdAndFoodItemsItemId(@PathVariable UUID userId,@PathVariable UUID itemId){
+    @GetMapping("/{itemId}")
+    public List<Order> getOrderByUserIdAndFoodItemsItemId(@RequestHeader UUID userId,@PathVariable UUID itemId){
         return orderService.getOrderByUserIdAndFoodItemsItemId(userId, itemId);
     }
 
