@@ -6,29 +6,31 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {post} from './api';
+import {post} from '../api';
 
 const SignupScreen = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phoneNum, setPhone] = useState('');
 
   const handleSignup = async () => {
+    console.log(phoneNum);
+    try {
+      const signupData = await post('/user', {
+        firstName,
+        lastName,
+        email,
+        password,
+        phoneNum,
+      });
 
-    // try {
-    //   const signupData = await post('/user', {
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     password,
-    //   });
-
-    //   console.log('Signup Data:', signupData);
-    //   // Handle signupData response and navigation or other actions
-    // } catch (error) {
-    //   console.error('Error during signup:', error);
-    // }
+      console.log('Signup Data:', signupData);
+      // Handle signupData response and navigation or other actions
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
   };
 
   return (
@@ -36,29 +38,42 @@ const SignupScreen = ({navigation}) => {
       <Text style={styles.header}>Signup</Text>
       <TextInput
         style={styles.input}
+        placeholderTextColor={'#a8a8a8'}
         placeholder="First Name"
         value={firstName}
         onChangeText={setFirstName}
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor={'#a8a8a8'}
         placeholder="Last Name"
         value={lastName}
         onChangeText={setLastName}
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor={'#a8a8a8'}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
+        placeholderTextColor={'#a8a8a8'}
         placeholder="Password"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
+      <TextInput
+        style={styles.input}
+        placeholderTextColor={'#a8a8a8'}
+        placeholder="Phone Number"
+        keyboardType="phone-pad"
+        value={phoneNum}
+        onChangeText={setPhone}
+      />
+
       <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
         <Text style={styles.signupButtonText}>Signup</Text>
       </TouchableOpacity>
@@ -80,6 +95,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '80%',
+    color: 'gray',
     height: 40,
     borderWidth: 1,
     borderRadius: 8,

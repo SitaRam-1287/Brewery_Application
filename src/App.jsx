@@ -13,7 +13,7 @@ import OrdersScreen from './screens/OrdersScreen';
 import PrivacyPolicy from './screens/PrivacyPolicy';
 import MyInfoScreen from './screens/MyInfoScreen';
 import configureStore from './redux/store';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+
 import SelectAddressModal from './screens/SelectAddressModal';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -61,11 +61,6 @@ function CartStack() {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Search" component={SearchResultsScreen} />
-      <Stack.Screen
-        name="SelectAddress"
-        options={{presentation: 'fullScreenModal'}}
-        component={SelectAddressModal}
-      />
     </Stack.Navigator>
   );
 }
@@ -136,61 +131,59 @@ function App() {
 
   return (
     <ReduxProvider store={store}>
-      <GestureHandlerRootView style={{flex: 1}}>
-        <NavigationContainer>
-          {isLogged ? (
-            <Tab.Navigator
-              activeColor="#fdab00"
-              inactiveColor="gray"
-              barStyle={{backgroundColor: '#ffff'}}>
-              <Tab.Screen
-                name="Home"
-                component={HomeStack}
-                options={{
-                  tabBarIcon: () => (
-                    <Image source={require('./assets/icons/home-button.png')} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Menu"
-                component={MenuScreen}
-                options={{
-                  tabBarIcon: () => (
-                    <Image source={require('./assets/icons/menu.png')} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Cart"
-                component={CartStack}
-                options={{
-                  tabBarIcon: () => (
-                    <Image source={require('./assets/icons/trolley.png')} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="TabProfile"
-                component={ProfileStack}
-                options={{
-                  tabBarIcon: () => (
-                    <Image source={require('./assets/icons/profile.png')} />
-                  ),
-                }}
-              />
-            </Tab.Navigator>
-          ) : (
-            <Stack.Navigator
-              initialRouteName="Login"
-              screenOptions={{headerShown: false}}>
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Signup" component={SignupScreen} />
-              <Stack.Screen name="TabNavigator" component={TabNavigator} />
-            </Stack.Navigator>
-          )}
-        </NavigationContainer>
-      </GestureHandlerRootView>
+      <NavigationContainer>
+        {isLogged ? (
+          <Tab.Navigator
+            activeColor="#fdab00"
+            inactiveColor="gray"
+            barStyle={{backgroundColor: '#ffff'}}>
+            <Tab.Screen
+              name="Home"
+              component={HomeStack}
+              options={{
+                tabBarIcon: () => (
+                  <Image source={require('./assets/icons/home-button.png')} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Menu"
+              component={MenuScreen}
+              options={{
+                tabBarIcon: () => (
+                  <Image source={require('./assets/icons/menu.png')} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Cart"
+              component={CartStack}
+              options={{
+                tabBarIcon: () => (
+                  <Image source={require('./assets/icons/trolley.png')} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="TabProfile"
+              component={ProfileStack}
+              options={{
+                tabBarIcon: () => (
+                  <Image source={require('./assets/icons/profile.png')} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        ) : (
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
     </ReduxProvider>
   );
 }

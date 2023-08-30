@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const BASE_URL = 'https://slick-groups-know.loca.lt';
+export const BASE_URL = 'https://orange-colts-say.loca.lt';
 
 const setHeaders = async () => {
   const loginDataString = await AsyncStorage.getItem('loginData');
@@ -23,9 +23,21 @@ export async function get(endpoint) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       headers,
     });
-    const data = await response.json();
-    console.log(data);
-    return data;
+
+    if (!response.ok) {
+      console.error('Error making GET request:', response.status);
+      throw new Error('Network response was not ok');
+    }
+
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } else {
+      console.error('Error making GET request: Unexpected content type');
+      throw new Error('Response was not JSON');
+    }
   } catch (error) {
     console.error('Error making GET request:', error);
     throw error;

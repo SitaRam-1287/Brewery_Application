@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -11,10 +12,17 @@ import {
 import {useSelector} from 'react-redux';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
+import {post} from '../api';
 
 const CartScreen = ({navigation}) => {
   const [selectedTab, setSelectedTab] = useState('pickup');
+  const [deliveryLocation, setDeliveryLocation] = useState('');
   const items = useSelector(state => state.cartReducer.items);
+  const postItems = items.map(item => ({
+    itemId: item.id,
+    quantity: item.quantity,
+  }));
+
 
   const handleSelectAddress = () => {
     navigation.navigate('SelectAddress');
@@ -26,6 +34,18 @@ const CartScreen = ({navigation}) => {
       total += item.price * item.quantity;
     });
     return total;
+  };
+
+  const handlePlaceOrder = async () => {
+    
+    try {
+      const order = await post('/order', {
+        items: postItems,
+      });
+      console.log(order);
+    } catch (error) {
+      console.error('Error during place order:', error);
+    }
   };
 
   const renderItem = ({item}) => (
@@ -107,7 +127,9 @@ const CartScreen = ({navigation}) => {
         )}
       </ScrollView>
       {items.length > 0 && (
-        <TouchableOpacity style={styles.placeOrderButton}>
+        <TouchableOpacity
+          style={styles.placeOrderButton}
+          onPress={handlePlaceOrder}>
           <Text style={styles.placeOrderButtonText}>Place Order</Text>
         </TouchableOpacity>
       )}

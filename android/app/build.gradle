@@ -69,6 +69,10 @@ def enableProguardInReleaseBuilds = false
 def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
+    dexOptions {
+   incremental true
+   javaMaxHeapSize "4g"
+}
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -80,7 +84,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-    }
+            }
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -108,7 +112,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
     // For animated GIF support
  implementation 'com.facebook.fresco:animated-gif:2.5.0'
-
+  
  // For WebP support, including animated WebP
  implementation 'com.facebook.fresco:animated-webp:2.5.0'
  implementation 'com.facebook.fresco:webpsupport:2.5.0'

@@ -22,10 +22,7 @@ export default function ItemCard({id, name, description, price, image}) {
   const dispatch = useDispatch();
   const handleSeeDetails = () => {
     navigation.navigate('ItemDetails', {
-      name,
-      description,
-      price,
-      image,
+      id,
     });
   };
 
