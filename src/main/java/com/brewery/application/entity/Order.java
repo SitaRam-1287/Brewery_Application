@@ -36,6 +36,10 @@ public class Order {
     @OneToMany
     private List<OrderItem> foodItems;
 
+    private String userLatitude;
+
+    private String userLongitude;
+
     @ManyToOne
     private Store store;
 

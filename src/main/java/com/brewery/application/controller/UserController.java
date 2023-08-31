@@ -62,8 +62,8 @@ public class UserController{
 
 
     @PatchMapping
-    public UserOutDto partialUpdateUser(UserInDto input){
-        return userService.partialUpdateUser(input);
+    public UserOutDto partialUpdateUser(@RequestHeader UUID userId , UserInDto input){
+        return userService.partialUpdateUser(userId,input);
     }
 
     @GetMapping("/getAll")
@@ -74,6 +74,11 @@ public class UserController{
     @PostMapping("/email")
     public String verifyEmail(@RequestHeader UUID userId){
         return userService.verifyEmail(userId);
+    }
+
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestHeader UUID userId){
+        return userService.resetPassword(userId);
     }
 
     @PostMapping("/otp")

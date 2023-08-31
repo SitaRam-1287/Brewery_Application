@@ -14,6 +14,7 @@ import com.brewery.application.repository.StoreRepository;
 import com.brewery.application.repository.UserRepository;
 import com.brewery.application.service.FireBaseService;
 import com.brewery.application.service.UserService;
+import com.brewery.application.utils.PatchMapper;
 import com.google.firebase.auth.UserRecord;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
@@ -47,6 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PatchMapper patchMapper;
 
     private static final String FIREBASE_URL="https://identitytoolkit.googleapis.com/v1/accounts";
 
@@ -82,6 +86,7 @@ public class UserServiceImpl implements UserService {
         }}
         user.setAddressList(addressList);
         user.setRole(Role.USER);
+        user.setDateOfBirth(input.getDateOfBirth().toLocalDate());
         user = userRepository.save(user);
         System.out.println(user.getPhoneNum());
         UserOutDto userOutDto = convertEntityToDto(user);
@@ -133,6 +138,12 @@ public class UserServiceImpl implements UserService {
     public String verifyEmail(UUID userId) {
         User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User with given id is not found"));
         return emailService.sendEmail(user.getEmail());
+    }
+
+    @Override
+    public String resetPassword(UUID userId) {
+        User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User with given id is not found"));
+        return emailService.resetPassword(user.getEmail());
     }
 
     @Override
@@ -190,8 +201,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserOutDto partialUpdateUser(UserInDto input) {
-        return null;
+    public UserOutDto partialUpdateUser(UUID userId,UserInDto input) {
+        User user = modelMapper.map(input,User.class);
+        User existingUser = userRepository.findById(userId).orElseThrow(() -> new ElementNotFoundException("User not found with given Id"));
+        patchMapper.map(user,existingUser);
+        existingUser = userRepository.save(existingUser);
+        return convertEntityToDto(existingUser);
     }
 
 

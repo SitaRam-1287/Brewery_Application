@@ -22,7 +22,7 @@ public interface ItemService {
 
     public ItemBasicOutDto updateItem(ItemInDto item);
 
-    public ItemBasicOutDto patchItem(ItemInDto item);
+    public ItemBasicOutDto patchItem(UUID itemId,ItemInDto item);
 
     public void deleteItem(UUID id);
 

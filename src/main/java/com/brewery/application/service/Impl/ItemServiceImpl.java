@@ -6,11 +6,13 @@ import com.brewery.application.dto.outputdto.ItemFullDetailsDto;
 import com.brewery.application.dto.outputdto.RatingOutDto;
 import com.brewery.application.entity.Item;
 import com.brewery.application.entity.Rating;
+import com.brewery.application.entity.User;
 import com.brewery.application.enums.FoodType;
 import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.repository.ItemRepository;
 import com.brewery.application.repository.RatingRepository;
 import com.brewery.application.service.ItemService;
+import com.brewery.application.utils.PatchMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PatchMapper patchMapper;
+
+
     @Override
     public ItemBasicOutDto createItem(ItemInDto item) {
         Item item1=modelMapper.map(item,Item.class);
@@ -125,8 +132,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemBasicOutDto patchItem(ItemInDto item) {
-        return null;
+    public ItemBasicOutDto patchItem(UUID itemId,ItemInDto input) {
+
+        Item item = modelMapper.map(input,Item.class);
+        Item existingItem = itemRepository.findById(itemId).orElseThrow(() -> new ElementNotFoundException("User not found with given Id"));
+        patchMapper.map(item,existingItem);
+        existingItem = itemRepository.save(existingItem);
+        return modelMapper.map(existingItem,ItemBasicOutDto.class);
     }
 
     @Override
