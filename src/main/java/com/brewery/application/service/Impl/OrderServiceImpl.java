@@ -75,6 +75,7 @@ public class OrderServiceImpl implements OrderService{
         //order.setStore(store);
         order.setFoodItems(foodItems1);
         order.setUser(user);
+        order.setStatus(OrderStatus.PENDING);
         order.setOrderedTime(LocalDateTime.now());
         //order.setAddress(address);
         order = orderRepository.save(order);

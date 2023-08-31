@@ -69,7 +69,7 @@ public class ItemController {
         return itemService.patchItem(item);
     }
 
-    @DeleteMapping("{id}")c
+    @DeleteMapping("{id}")
     private void deleteItem(@PathVariable UUID id) {
         itemService.deleteItem(id);
     }
