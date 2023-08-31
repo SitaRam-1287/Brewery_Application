@@ -24,6 +24,8 @@ public interface UserService {
 
     public String verifyEmail(UUID userId);
 
+    String resetPassword(UUID userId);
+
     public byte[] postImage(@RequestHeader UUID id, MultipartFile image);
 
     boolean verifyOtp(String otp);
@@ -34,7 +36,7 @@ public interface UserService {
 
     public UserOutDto updateUser(UserInDto input);
 
-    public UserOutDto partialUpdateUser(UserInDto input);
+    public UserOutDto partialUpdateUser(UUID userId,UserInDto input);
 
     public List<UserOutDto> getAllUsers();
 

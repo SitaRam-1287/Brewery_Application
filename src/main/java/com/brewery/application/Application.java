@@ -1,8 +1,8 @@
 package com.brewery.application;
 
-import com.brewery.application.service.Impl.OrderServiceImpl;
-import com.brewery.application.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.brewery.application.utils.PatchMapper;
+import org.modelmapper.Conditions;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.modelmapper.ModelMapper;
@@ -23,6 +23,13 @@ public class Application {
 	public ModelMapper modelMapper(){
 
 		return new ModelMapper();
+	}
+
+	@Bean
+	public PatchMapper patchMapper(){
+		PatchMapper patchMapper = new PatchMapper();
+		patchMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT).setPropertyCondition(Conditions.isNotNull());
+		return patchMapper;
 	}
 
 	@Bean

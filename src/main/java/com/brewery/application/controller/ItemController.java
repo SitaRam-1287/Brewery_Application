@@ -65,12 +65,12 @@ public class ItemController {
         return itemService.updateItem(item);
     }
 
-    @PatchMapping
-    private ItemBasicOutDto patchItem(@RequestBody ItemInDto item) {
-        return itemService.patchItem(item);
+    @PatchMapping("{id}")
+    private ItemBasicOutDto patchItem(@PathVariable UUID id,@RequestBody ItemInDto item) {
+        return itemService.patchItem(id,item);
     }
 
-    @DeleteMapping("{id}")c
+    @DeleteMapping("{id}")
     private void deleteItem(@PathVariable UUID id) {
         itemService.deleteItem(id);
     }

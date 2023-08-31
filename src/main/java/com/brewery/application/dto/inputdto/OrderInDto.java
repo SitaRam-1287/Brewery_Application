@@ -10,7 +10,9 @@ public class OrderInDto {
 
     private UUID userId;
 
-    private UUID addressId;
+    private String userLatitude;
+
+    private String userLongitude;
 
     private UUID storeId;
 

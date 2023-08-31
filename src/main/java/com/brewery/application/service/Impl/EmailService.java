@@ -1,5 +1,7 @@
 package com.brewery.application.service.Impl;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,6 +26,15 @@ public class EmailService {
         message.setTo(to);
         javaMailSender.send(message);
         return "email send successfully";
+    }
+
+    public String resetPassword(String email){
+        try {
+            FirebaseAuth.getInstance().generatePasswordResetLink(email);
+            return "Password reset email sent.";
+        } catch (FirebaseAuthException e) {
+            return "Failed to send password reset email.";
+        }
     }
 
     public String generateOtp(int length){

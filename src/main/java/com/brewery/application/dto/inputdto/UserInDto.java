@@ -4,6 +4,7 @@ import com.brewery.application.entity.Address;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import com.brewery.application.enums.Role;
 
@@ -22,7 +23,7 @@ public class UserInDto {
 
     private List<AddressInDto> addressList;
 
-    private LocalDate dateOfBirth;
+    private LocalDateTime dateOfBirth;
 
     private Role role;
 }
