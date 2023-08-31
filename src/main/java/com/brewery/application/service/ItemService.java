@@ -34,6 +34,8 @@ public interface ItemService {
 
     public List<ItemBasicOutDto> itemWithMoreRating();
 
+    public List<ItemBasicOutDto> mustTry();
+
     public byte[] getImage(@PathVariable UUID id);
 
     public Collection<ItemBasicOutDto> getItemByCategory(FoodType foodType);

@@ -47,7 +47,7 @@ public class RatingServiceImpl implements RatingService {
         if(item.getRating()!= null){
             item.setRating((item.getRating()+ input.getRating())/2);
         }else{
-            item.setRating(input.getRating().doubleValue());
+            item.setRating(input.getRating());
         }
         item = itemRepository.save(item);
         rating.setUser(user);

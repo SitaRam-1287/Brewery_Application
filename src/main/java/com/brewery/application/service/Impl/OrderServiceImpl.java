@@ -50,12 +50,12 @@ public class OrderServiceImpl implements OrderService{
     public InvoiceOutDto createOrder(UUID userId,OrderInDto input) {
         Order order = new Order();
         System.out.println(input.getUserId());
-        User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+        User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("Item with given id is not found"));
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
         for(OrderItemInDto item : foodItems){
            OrderItem it = new OrderItem();
-           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new ElementNotFoundException("Item with given id is not found"));
            it.setItem(item1);
            it.setQuantity(item.getQuantity());
            if(item1.getQuantityOrdered()!=null){
@@ -69,9 +69,9 @@ public class OrderServiceImpl implements OrderService{
            foodItems1.add(it);
 
         }
-        //Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new RuntimeException());
+        //Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new ElementNotFoundException());
         //AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
-        //Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new RuntimeException("Store with id not found"));
+        //Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
         //order.setStore(store);
         order.setFoodItems(foodItems1);
         order.setUser(user);
@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderOutDto updateOrder(OrderInDto input) {
         Order order = convertDtoToEntity(input);
-        Order existingOrder = orderRepository.findById(order.getId()).orElseThrow(()->new RuntimeException("Order with given id is not found"));
+        Order existingOrder = orderRepository.findById(order.getId()).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
         modelMapper.map(order,existingOrder);
         Order currentOrder = orderRepository.save(existingOrder);
         return convertEntityToDto(currentOrder);
@@ -143,7 +143,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderOutDto deleteOrder(UUID id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found with given Id"));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Order not found with given Id"));
         orderRepository.delete(order);
         return convertEntityToDto(order);
     }
@@ -167,7 +167,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderOutDto updateStatus(UUID orderId, OrderStatus orderStatus) {
-        Order order = orderRepository.findById(orderId).orElseThrow(RuntimeException::new);
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ElementNotFoundException("Order with id is not found"));
         order.setStatus(orderStatus);
         order = orderRepository.save(order);
         return convertEntityToDto(order);

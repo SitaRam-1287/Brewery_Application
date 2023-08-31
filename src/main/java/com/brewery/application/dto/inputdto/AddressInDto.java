@@ -16,5 +16,9 @@ public class AddressInDto {
 
     private String pin;
 
+    private String latitude;
+
+    private String longitude;
+
     private AddressType addressType;
 }

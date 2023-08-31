@@ -5,27 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ab4c0e8-e664-495f-9911-b822e1d0b421" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/UserFullDetailsDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/EmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/DocumentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Document.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/repository/DocumentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/DocumentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/DocumentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/RatingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/RatingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/ItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/ItemInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/ItemInDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/RatingInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/RatingInDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/UserInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/UserInDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemBasicOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemBasicOutDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/RatingOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/RatingOutDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Rating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Rating.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/AddressInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/AddressInDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/AddressOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/AddressOutDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/AddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/InvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/InvoiceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/ItemServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/RatingServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/StoreServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/ItemService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/RatingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/RatingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +36,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -47,7 +48,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1

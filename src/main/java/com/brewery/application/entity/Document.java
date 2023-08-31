@@ -6,23 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="invoice")
-public class Invoice {
+public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private Double amount;
+    private String fileName;
 
-    private Double deliveryFee;
+    private String contentType;
 
-    private Double gst;
-
-    private Double totalAmount;
-
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] data;
 }

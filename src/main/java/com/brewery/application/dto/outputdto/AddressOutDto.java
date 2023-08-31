@@ -20,5 +20,9 @@ public class AddressOutDto {
 
     private String pin;
 
+    private String latitude;
+
+    private String longitude;
+
     private AddressType addressType;
 }

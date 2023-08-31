@@ -3,6 +3,7 @@ package com.brewery.application.service.Impl;
 import com.brewery.application.dto.inputdto.AddressInDto;
 import com.brewery.application.dto.outputdto.AddressOutDto;
 import com.brewery.application.entity.Address;
+import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.repository.AddressRepository;
 import com.brewery.application.service.AddressService;
 import org.modelmapper.ModelMapper;
@@ -30,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressOutDto getAddressById(UUID id) {
-        Address address=addressRepository.findById(id).orElseThrow(()->new RuntimeException("Address with id not found"));
+        Address address=addressRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Address with id not found"));
         return convertEntityToDto(address);
     }
 
@@ -43,7 +44,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressOutDto updateAddress(AddressInDto addressInDto) {
         Address address=convertDtoToEntity(addressInDto);
-        Address address1=addressRepository.findById(address.getId()).orElseThrow(()->new RuntimeException("Address with id not found"));
+        Address address1=addressRepository.findById(address.getId()).orElseThrow(()->new ElementNotFoundException("Address with id not found"));
         modelMapper.map(address1,address);
         Address address2=addressRepository.save(address1);
         return convertEntityToDto(address2);

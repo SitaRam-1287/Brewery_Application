@@ -3,6 +3,7 @@ package com.brewery.application.service.Impl;
 
 import com.brewery.application.entity.Address;
 import com.brewery.application.entity.Store;
+import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.repository.AddressRepository;
 import com.brewery.application.repository.StoreRepository;
 import com.brewery.application.service.StoreService;
@@ -35,7 +36,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Store getStoreById(UUID id) {
-        return storeRepository.findById(id).orElseThrow(()->new RuntimeException("Store with id not found"));
+        return storeRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
     }
 
     @Override
@@ -45,14 +46,14 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Store updateStore(Store store) {
-        Store store1=storeRepository.findById(store.getId()).orElseThrow(()->new RuntimeException("Store with id not found"));
+        Store store1=storeRepository.findById(store.getId()).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
         modelMapper.map(store1,store);
         return storeRepository.save(store1);
     }
 
     @Override
     public Store patchStore(Store store) {
-        Store store1=storeRepository.findById(store.getId()).orElseThrow(()->new RuntimeException("Store with id not found"));
+        Store store1=storeRepository.findById(store.getId()).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
         store1.setName(store.getName());
         storeRepository.save(store1);
         return store1;

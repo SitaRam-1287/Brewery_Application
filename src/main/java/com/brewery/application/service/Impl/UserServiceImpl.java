@@ -98,40 +98,46 @@ public class UserServiceImpl implements UserService {
         map.put("password",input.getPassword());
         map.put("returnSecureToken",true);
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        HttpEntity<?> httpEntity = new HttpEntity<>(map,httpHeaders);
-        ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.POST,httpEntity,String.class);
-        String body = exchange.getBody();
-        Gson gson = new Gson();
+        try {
 
-        User user = userRepository.findByEmail(input.getEmail());
-        SignInFireBaseOutput signInFireBaseOutput = gson.fromJson(body,SignInFireBaseOutput.class);
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            HttpEntity<?> httpEntity = new HttpEntity<>(map, httpHeaders);
+            ResponseEntity<String> exchange = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+            String body = exchange.getBody();
+            Gson gson = new Gson();
 
-        LoginOutputDto loginOutputDto = new LoginOutputDto();
-        loginOutputDto.setAccessToken(signInFireBaseOutput.getIdToken());
-        loginOutputDto.setRefreshToken(signInFireBaseOutput.getRefreshToken());
-        loginOutputDto.setExpiresIn(signInFireBaseOutput.getExpiresIn());
-        loginOutputDto.setUserId(user.getId());
-        loginOutputDto.setUserName(user.getFirstName()+" "+user.getLastName());
-        return loginOutputDto;
+            User user = userRepository.findByEmail(input.getEmail());
+            SignInFireBaseOutput signInFireBaseOutput = gson.fromJson(body, SignInFireBaseOutput.class);
+
+            LoginOutputDto loginOutputDto = new LoginOutputDto();
+            loginOutputDto.setAccessToken(signInFireBaseOutput.getIdToken());
+            loginOutputDto.setRefreshToken(signInFireBaseOutput.getRefreshToken());
+            loginOutputDto.setExpiresIn(signInFireBaseOutput.getExpiresIn());
+            loginOutputDto.setUserId(user.getId());
+            loginOutputDto.setUserName(user.getFirstName() + " " + user.getLastName());
+            return loginOutputDto;
+        }
+        catch(Exception e){
+            throw new ElementNotFoundException("Please enter valid email and password");
+        }
     }
 
     @Override
     public UserFullDetailsDto getUser(UUID id) {
-        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("User with given id is not found"));
+        User user = userRepository.findById(id).orElseThrow(()->new ElementNotFoundException("User with given id is not found"));
         return modelMapper.map(user,UserFullDetailsDto.class);
     }
 
     @Override
     public String verifyEmail(UUID userId) {
-        User user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("User with given id is not found"));
+        User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User with given id is not found"));
         return emailService.sendEmail(user.getEmail());
     }
 
     @Override
     public byte[] postImage(UUID id, MultipartFile image) {
-        User user = userRepository.findById(id).orElseThrow(()->new RuntimeException("User with given id is not found"));
+        User user = userRepository.findById(id).orElseThrow(()->new ElementNotFoundException("User with given id is not found"));
         try {
             byte[] arr = image.getBytes();
             String s = Base64.getEncoder().encodeToString(arr);
@@ -140,7 +146,7 @@ public class UserServiceImpl implements UserService {
             return arr;
         }
         catch(Exception e){
-            throw new RuntimeException();
+            throw new ElementNotFoundException("error posting image");
         }
     }
 
@@ -151,7 +157,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserOutDto updateAddress(Address address, UUID id) {
-        User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("ID not found"));
+        User user=userRepository.findById(id).orElseThrow(()->new ElementNotFoundException("ID not found"));
         Address address1=addressRepository.save(address);
         List<Address> addressList = user.getAddressList();
         if(addressList!=null){
@@ -167,7 +173,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<AddressOutDto> getAddressList(UUID id) {
-        User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("user with id not found"));
+        User user=userRepository.findById(id).orElseThrow(()->new ElementNotFoundException("user with id not found"));
         List<Address> addressList=user.getAddressList();
         return addressList.stream().map(address -> modelMapper.map(address,AddressOutDto.class)).collect(Collectors.toList());
 
@@ -199,7 +205,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserOutDto deleteUser(UUID id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with given Id"));
+        User user = userRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("User not found with given Id"));
         userRepository.delete(user);
         return convertEntityToDto(user);
     }

@@ -7,6 +7,7 @@ import com.brewery.application.dto.outputdto.LoginOutputDto;
 import com.brewery.application.dto.outputdto.UserFullDetailsDto;
 import com.brewery.application.dto.outputdto.UserOutDto;
 import com.brewery.application.entity.Address;
+import com.brewery.application.exception.ElementNotFoundException;
 import com.brewery.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
