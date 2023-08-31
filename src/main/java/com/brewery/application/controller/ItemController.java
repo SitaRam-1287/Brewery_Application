@@ -70,7 +70,7 @@ public class ItemController {
         return itemService.patchItem(item);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}")c
     private void deleteItem(@PathVariable UUID id) {
         itemService.deleteItem(id);
     }
@@ -95,5 +95,9 @@ public class ItemController {
         return itemService.getByItemRating();
     }
 
+    @GetMapping("/mustTry")
+    private List<ItemBasicOutDto> getMustTry(){
+        return itemService.mustTry();
+    }
 
 }

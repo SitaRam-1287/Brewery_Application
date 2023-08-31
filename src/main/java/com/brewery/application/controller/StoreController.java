@@ -26,7 +26,7 @@ public class StoreController {
     }
 
     @GetMapping
-    private List<Store> getStore(){
+    private List<Store> getAllStores(){
         return storeService.getAllStore();
     }
 

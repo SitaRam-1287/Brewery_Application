@@ -31,6 +31,10 @@ public class Address {
     @Column
     private String pin;
 
+    private String latitude;
+
+    private String longitude;
+
     @Column
     @Enumerated(EnumType.STRING)
     private AddressType addressType;

@@ -16,9 +16,9 @@ public class RatingController {
     private RatingService ratingService;
 
     @PostMapping
-    public RatingOutDto createRating(@RequestBody RatingInDto input){
+    public RatingOutDto createRating(@RequestHeader UUID userId,@RequestBody RatingInDto input){
 
-        return ratingService.createRating(input);
+        return ratingService.createRating(userId,input);
     }
 
     @GetMapping("{id}")
@@ -51,8 +51,8 @@ public class RatingController {
         return ratingService.deleteRating(id);
     }
 
-    @GetMapping("/user/{id}")
-    public List<RatingOutDto> getRatingByUser(@PathVariable UUID id){
+    @GetMapping("/user")
+    public List<RatingOutDto> getRatingByUser(@RequestHeader UUID id){
 
         return ratingService.getRatingByUserId(id);
 

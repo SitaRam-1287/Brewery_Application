@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface RatingService{
 
-    public RatingOutDto createRating(RatingInDto input);
+    public RatingOutDto createRating(UUID userId,RatingInDto input);
 
     public RatingOutDto getRating(UUID id);
 

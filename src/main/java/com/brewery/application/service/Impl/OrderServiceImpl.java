@@ -15,11 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,14 +47,15 @@ public class OrderServiceImpl implements OrderService{
     private ModelMapper modelMapper;
 
     @Override
-    public InvoiceOutDto createOrder(OrderInDto input) {
+    public InvoiceOutDto createOrder(UUID userId,OrderInDto input) {
         Order order = new Order();
-        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+        System.out.println(input.getUserId());
+        User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("Item with given id is not found"));
         List<OrderItemInDto> foodItems = input.getItems();
         List<OrderItem> foodItems1 = new ArrayList<>();
         for(OrderItemInDto item : foodItems){
            OrderItem it = new OrderItem();
-           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new RuntimeException("Item with given id is not found"));
+           Item item1 = itemRepository.findById(item.getItemId()).orElseThrow(()->new ElementNotFoundException("Item with given id is not found"));
            it.setItem(item1);
            it.setQuantity(item.getQuantity());
            if(item1.getQuantityOrdered()!=null){
@@ -71,14 +69,14 @@ public class OrderServiceImpl implements OrderService{
            foodItems1.add(it);
 
         }
-        Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new RuntimeException());
-        AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
-        Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new RuntimeException("Store with id not found"));
-        order.setStore(store);
+        //Address address = addressRepository.findById(input.getAddressId()).orElseThrow(()->new ElementNotFoundException());
+        //AddressOutDto addressOutDto = modelMapper.map(address, AddressOutDto.class);
+        //Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
+        //order.setStore(store);
         order.setFoodItems(foodItems1);
         order.setUser(user);
         order.setOrderedTime(LocalDateTime.now());
-        order.setAddress(address);
+        //order.setAddress(address);
         order = orderRepository.save(order);
         return initiatePayment(order);
     }
@@ -125,7 +123,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderOutDto updateOrder(OrderInDto input) {
         Order order = convertDtoToEntity(input);
-        Order existingOrder = orderRepository.findById(order.getId()).orElseThrow(()->new RuntimeException("Order with given id is not found"));
+        Order existingOrder = orderRepository.findById(order.getId()).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
         modelMapper.map(order,existingOrder);
         Order currentOrder = orderRepository.save(existingOrder);
         return convertEntityToDto(currentOrder);
@@ -145,7 +143,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderOutDto deleteOrder(UUID id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found with given Id"));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Order not found with given Id"));
         orderRepository.delete(order);
         return convertEntityToDto(order);
     }
@@ -169,13 +167,13 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderOutDto updateStatus(UUID orderId, OrderStatus orderStatus) {
-        Order order = orderRepository.findById(orderId).orElseThrow(RuntimeException::new);
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ElementNotFoundException("Order with id is not found"));
         order.setStatus(orderStatus);
         order = orderRepository.save(order);
         return convertEntityToDto(order);
     }
 
-    public void getDailyReport(){
+    public HashMap<LocalDate, List<Double>> getDailyReport(){
         List<Order> orders = orderRepository.findAll();
         HashMap<LocalDate,Double> report = new HashMap<>();
         HashMap<LocalDate,Integer> dailyCount = new HashMap<>();
@@ -184,12 +182,13 @@ public class OrderServiceImpl implements OrderService{
             report.merge(date, order.getTotalAmount(), Double::sum);
             dailyCount.merge(date, 1, Integer::sum);
         }
-//        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
-//        for(LocalDate key : report.keySet()){
-//            reportStatus.put(key,List.of());
-//            System.out.println(key+" "+);
-//            System.out.println(key+" "+dailyCount.get(key));
-//        }
+        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
+        for(LocalDate key : report.keySet()){
+            Double amount = report.get(key);
+            Integer count = dailyCount.get(key);
+            reportStatus.put(key,List.of(count.doubleValue(),amount));
+        }
+        return reportStatus;
     }
 
     public Order convertDtoToEntity(OrderInDto input){

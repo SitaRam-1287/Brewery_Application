@@ -13,9 +13,10 @@ import java.util.UUID;
 public class RatingOutDto {
 
     private UUID id;
+
     private String comment;
 
-    private Integer rating;
+    private Double rating;
 
     private String itemName;
 

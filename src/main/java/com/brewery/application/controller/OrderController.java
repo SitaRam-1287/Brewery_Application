@@ -10,6 +10,9 @@ import com.brewery.application.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,8 +23,8 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping()
-    public InvoiceOutDto createOrder(@RequestBody OrderInDto input){
-        return orderService.createOrder(input);
+    public InvoiceOutDto createOrder(@RequestHeader UUID userId,@RequestBody OrderInDto input){
+        return orderService.createOrder(userId,input);
     }
 
     @GetMapping("{id}")
@@ -34,6 +37,11 @@ public class OrderController {
     public OrderOutDto updateOrder(OrderInDto input){
 
         return orderService.updateOrder(input);
+    }
+
+    @GetMapping("/dailyReport")
+    public AbstractMap<LocalDate,List<Double>> getDailyReport(){
+        return orderService.getDailyReport();
     }
 
 
@@ -85,12 +93,12 @@ public class OrderController {
         return orderService.getInvoice(orderId);
     }
 
-    @GetMapping("/{userId}/{itemId}")
-    public List<Order> getOrderByUserIdAndFoodItemsItemId(@PathVariable UUID userId,@PathVariable UUID itemId){
+    @GetMapping("/{itemId}")
+    public List<Order> getOrderByUserIdAndFoodItemsItemId(@RequestHeader UUID userId,@PathVariable UUID itemId){
         return orderService.getOrderByUserIdAndFoodItemsItemId(userId, itemId);
     }
 
-    @PostMapping("status/{orderId}")
+    @PostMapping("/{orderId}")
     public OrderOutDto updateStatus(@PathVariable UUID orderId,@RequestParam OrderStatus orderStatus){
         return orderService.updateStatus(orderId, orderStatus);
     }

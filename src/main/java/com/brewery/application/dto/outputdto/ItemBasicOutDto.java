@@ -18,9 +18,6 @@ public class ItemBasicOutDto {
     private Double price;
 
     private String details;
-
-    private Double rating;
-
-    private Integer quantityOrdered;
+    
 
 }

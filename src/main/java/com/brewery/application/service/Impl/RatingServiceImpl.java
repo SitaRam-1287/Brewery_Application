@@ -38,16 +38,16 @@ public class RatingServiceImpl implements RatingService {
     private ModelMapper modelMapper;
 
     @Override
-    public RatingOutDto createRating(RatingInDto input) {
+    public RatingOutDto createRating(UUID userId,RatingInDto input) {
         Rating rating = new Rating();
         //List<Order> orders = orderRepository.findOrderByUserIdAndFoodItemsItemId(input.getUserId(),input.getItemId());
-        User user = userRepository.findById(input.getUserId()).orElseThrow(()->new ElementNotFoundException("User With Given Id is Not Found"));
+        User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("User With Given Id is Not Found"));
         Item item = itemRepository.findById(input.getItemId()).orElseThrow(()->new ElementNotFoundException("Item With Given Id is Not Found"));
         Order order = orderRepository.findById(input.getOrderId()).orElseThrow(()->new ElementNotFoundException("error"));
         if(item.getRating()!= null){
             item.setRating((item.getRating()+ input.getRating())/2);
         }else{
-            item.setRating(input.getRating().doubleValue());
+            item.setRating(input.getRating());
         }
         item = itemRepository.save(item);
         rating.setUser(user);
