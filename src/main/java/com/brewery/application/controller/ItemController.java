@@ -44,6 +44,7 @@ public class ItemController {
     private List<ItemBasicOutDto> itemOrderedMore(){
         return itemService.itemOrderedMore();
     }
+
     @GetMapping("/topRated")
     private List<ItemBasicOutDto> itemWithMoreRating(){
         return itemService.itemWithMoreRating();
@@ -78,14 +79,17 @@ public class ItemController {
     private void deleteAllItems() {
         itemService.deleteAllItems();
     }
+
     @GetMapping("/orderQuantity")
     private List<ItemBasicOutDto> getByOrderQuantity(){
         return itemService.getByOrderQuantity();
     }
+
     @GetMapping("name/{name}")
     private ItemBasicOutDto getByName(@PathVariable String name){
         return itemService.getByName(name);
     }
+
     @GetMapping("/rating")
     private List<ItemBasicOutDto> getByItemRating(){
         return itemService.getByItemRating();
