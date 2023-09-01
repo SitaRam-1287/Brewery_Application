@@ -27,6 +27,10 @@ public class OrderOutDto {
 
     private String userLastName;
 
+    private String userLatitude;
+
+    private String userLongitude;
+
     private AddressOutDto  address;
 
     private List<OrderItem> foodItems;

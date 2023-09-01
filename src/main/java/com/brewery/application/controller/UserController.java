@@ -76,7 +76,7 @@ public class UserController{
         return userService.verifyEmail(userId);
     }
 
-    @PostMapping("/resetPassword")
+    @GetMapping("/resetPassword")
     public String resetPassword(@RequestHeader UUID userId){
         return userService.resetPassword(userId);
     }
