@@ -1,10 +1,7 @@
 package com.brewery.application.controller;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
-import com.brewery.application.dto.outputdto.InvoiceOutDto;
-import com.brewery.application.dto.outputdto.OrderItemOutDto;
-import com.brewery.application.dto.outputdto.OrderOutDto;
-import com.brewery.application.dto.outputdto.OrderTrackingDto;
+import com.brewery.application.dto.outputdto.*;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.service.OrderService;
@@ -41,7 +38,7 @@ public class OrderController {
     }
 
     @GetMapping("/dailyReport")
-    public AbstractMap<LocalDate,List<Double>> getDailyReport(){
+    public DashboardOutputDto getDailyReport(){
         return orderService.getDailyReport();
     }
 

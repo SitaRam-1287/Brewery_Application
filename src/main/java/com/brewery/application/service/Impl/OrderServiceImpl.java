@@ -176,22 +176,41 @@ public class OrderServiceImpl implements OrderService{
         return convertEntityToDto(order);
     }
 
-    public HashMap<LocalDate, List<Double>> getDailyReport(){
+    public DashboardOutputDto getDailyReport(){
         List<Order> orders = orderRepository.findAll();
         HashMap<LocalDate,Double> report = new HashMap<>();
         HashMap<LocalDate,Integer> dailyCount = new HashMap<>();
+        Double totalRevenue = 0.0;
         for(Order order : orders){
             LocalDate date = order.getOrderedTime().toLocalDate();
             report.merge(date, order.getTotalAmount(), Double::sum);
             dailyCount.merge(date, 1, Integer::sum);
         }
-        HashMap<LocalDate,List<Double>> reportStatus = new HashMap<>();
-        for(LocalDate key : report.keySet()){
-            Double amount = report.get(key);
-            Integer count = dailyCount.get(key);
-            reportStatus.put(key,List.of(count.doubleValue(),amount));
+
+        //String arr[] = {"Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"};
+
+        List<String> dates = new ArrayList<>();
+
+        List<Double> revenue = new ArrayList<>();
+
+        List<Integer> noOfOrders = new ArrayList<>();
+
+        for(LocalDate key : report.keySet()) {
+            dates.add(key.getMonth()+" "+key.getDayOfMonth());
+            revenue.add(report.get(key));
+            totalRevenue+=report.get(key);
+            noOfOrders.add(dailyCount.get(key));
         }
-        return reportStatus;
+        DashboardOutputDto dto = new DashboardOutputDto();
+        dto.setDates(dates);
+        dto.setRevenue(revenue);
+        dto.setNoOfOrders(noOfOrders);
+        dto.setTotalOrders((int)orderRepository.count());
+        dto.setTotalCustomers((int)userRepository.count());
+        dto.setTotalMenuItems((int)itemRepository.count());
+        dto.setTotalRevenue(totalRevenue);
+
+        return dto;
     }
 
     public Order convertDtoToEntity(OrderInDto input){

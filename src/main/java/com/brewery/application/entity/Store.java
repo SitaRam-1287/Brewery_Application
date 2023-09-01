@@ -19,6 +19,8 @@ public class Store {
 
     private String name;
 
+    private String phoneNo;
+
     @OneToOne
     private Address location;
 }

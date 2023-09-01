@@ -29,7 +29,7 @@ public interface OrderService{
     public OrderOutDto deleteOrder(UUID id);
 
     public List<OrderItemOutDto> getOrderByUser(UUID id);
-    public HashMap<LocalDate,List<Double>> getDailyReport();
+    public DashboardOutputDto getDailyReport();
 
     public List<OrderOutDto> getOrderByStatus(OrderStatus orderStatus);
 

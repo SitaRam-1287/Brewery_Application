@@ -7,7 +7,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 public class OrderTrackingDto {
@@ -25,6 +24,8 @@ public class OrderTrackingDto {
     private String storeLocationLatitude;
 
     private String storeLocationLongitude;
+
+    private String storePhoneNo;
 
     private Double totalAmount;
 }
