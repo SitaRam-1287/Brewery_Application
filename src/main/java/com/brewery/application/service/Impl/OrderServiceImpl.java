@@ -2,10 +2,7 @@ package com.brewery.application.service.Impl;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
 import com.brewery.application.dto.inputdto.OrderItemInDto;
-import com.brewery.application.dto.outputdto.AddressOutDto;
-import com.brewery.application.dto.outputdto.InvoiceOutDto;
-import com.brewery.application.dto.outputdto.OrderItemOutDto;
-import com.brewery.application.dto.outputdto.OrderOutDto;
+import com.brewery.application.dto.outputdto.*;
 import com.brewery.application.entity.*;
 import com.brewery.application.enums.OrderStatus;
 import com.brewery.application.exception.ElementNotFoundException;
@@ -85,6 +82,12 @@ public class OrderServiceImpl implements OrderService{
     public OrderOutDto getOrder(UUID id) {
         Order order = orderRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
         return convertEntityToDto(order);
+    }
+
+    @Override
+    public OrderTrackingDto trackOrder(UUID id) {
+        Order order = orderRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
+        return modelMapper.map(order,OrderTrackingDto.class);
     }
 
     @Override

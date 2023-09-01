@@ -1,10 +1,7 @@
 package com.brewery.application.service;
 
 import com.brewery.application.dto.inputdto.OrderInDto;
-import com.brewery.application.dto.outputdto.InvoiceOutDto;
-import com.brewery.application.dto.outputdto.ItemBasicOutDto;
-import com.brewery.application.dto.outputdto.OrderItemOutDto;
-import com.brewery.application.dto.outputdto.OrderOutDto;
+import com.brewery.application.dto.outputdto.*;
 import com.brewery.application.entity.Order;
 import com.brewery.application.enums.OrderStatus;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +17,7 @@ public interface OrderService{
     public InvoiceOutDto createOrder(UUID userId,OrderInDto input);
 
     public OrderOutDto getOrder(UUID id);
+    public OrderTrackingDto trackOrder(UUID id);
     public InvoiceOutDto getInvoice(UUID orderId);
     public OrderStatus getStatus(UUID uuid);
     public OrderOutDto updateOrder(OrderInDto input);
