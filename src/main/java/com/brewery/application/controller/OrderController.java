@@ -21,7 +21,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping()
-    public InvoiceOutDto createOrder(@RequestHeader UUID userId,@RequestBody OrderInDto input){
+    public OrderOutDto createOrder(@RequestHeader UUID userId,@RequestBody OrderInDto input){
         return orderService.createOrder(userId,input);
     }
 
@@ -85,9 +85,9 @@ public class OrderController {
     }
 
     @GetMapping("/payment/{id}")
-    public InvoiceOutDto initiatePayment(Order order){
+    public InvoiceOutDto initiatePayment(@PathVariable UUID id){
 
-        return orderService.initiatePayment(order);
+        return orderService.initiatePayment(id);
 
     }
 

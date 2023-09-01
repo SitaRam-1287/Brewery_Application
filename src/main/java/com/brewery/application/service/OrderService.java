@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public interface OrderService{
 
-    public InvoiceOutDto initiatePayment(Order order);
-    public InvoiceOutDto createOrder(UUID userId,OrderInDto input);
+    public InvoiceOutDto initiatePayment(UUID id);
+    public OrderOutDto createOrder(UUID userId,OrderInDto input);
 
     public OrderOutDto getOrder(UUID id);
     public OrderTrackingDto trackOrder(UUID id);
