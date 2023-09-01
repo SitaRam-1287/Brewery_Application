@@ -30,9 +30,15 @@ public class EmailService {
 
     public String resetPassword(String email){
         try {
-            FirebaseAuth.getInstance().generatePasswordResetLink(email);
+            String s = FirebaseAuth.getInstance().generatePasswordResetLink(email);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setSubject("Reset Password");
+            message.setText(s);
+            message.setTo(email);
+            javaMailSender.send(message);
             return "Password reset email sent.";
-        } catch (FirebaseAuthException e) {
+        }
+        catch (FirebaseAuthException e) {
             return "Failed to send password reset email.";
         }
     }

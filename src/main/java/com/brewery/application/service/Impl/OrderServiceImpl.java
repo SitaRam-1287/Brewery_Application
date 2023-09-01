@@ -66,14 +66,14 @@ public class OrderServiceImpl implements OrderService{
            foodItems1.add(it);
 
         }
-        //Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
-        //order.setStore(store);
+        Store store=storeRepository.findById(input.getStoreId()).orElseThrow(()->new ElementNotFoundException("Store with id not found"));
+        order.setStore(store);
         order.setFoodItems(foodItems1);
         order.setUserLatitude(input.getUserLatitude());
         order.setUserLongitude(input.getUserLongitude());
         order.setUser(user);
+        order.setStatus(OrderStatus.PENDING);
         order.setOrderedTime(LocalDateTime.now());
-        //order.setAddress(address);
         order = orderRepository.save(order);
         return initiatePayment(order);
     }
