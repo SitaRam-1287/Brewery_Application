@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService{
     private ModelMapper modelMapper;
 
     @Override
-    public InvoiceOutDto createOrder(UUID userId,OrderInDto input) {
+    public OrderOutDto createOrder(UUID userId,OrderInDto input) {
         Order order = new Order();
         System.out.println(input.getUserId());
         User user = userRepository.findById(userId).orElseThrow(()->new ElementNotFoundException("Item with given id is not found"));
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService{
         order.setStatus(OrderStatus.PENDING);
         order.setOrderedTime(LocalDateTime.now());
         order = orderRepository.save(order);
-        return initiatePayment(order);
+        return convertEntityToDto(order);
     }
 
     @Override
@@ -103,7 +103,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
-    public InvoiceOutDto initiatePayment(Order order){
+    public InvoiceOutDto initiatePayment(UUID id){
+        Order order = orderRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
         Double Amount = 0.0;
         Double TotalAmount = 0.0;
         List<OrderItem> foodItems = order.getFoodItems();
