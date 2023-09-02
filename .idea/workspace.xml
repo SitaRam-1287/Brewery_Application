@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="52c27995-b359-4818-8d33-d61ddc115ae8" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../AppData/Local/Google/Chrome/User Data/Default/CRXTelemetry/CRXTelemetry_0" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../AppData/Local/Google/Chrome/User Data/Default/Preferences" afterDir="false" />
@@ -171,6 +172,13 @@
       <change afterPath="$PROJECT_DIR$/../Downloads/demo-new/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Downloads/demo-new/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+    <list default="true" id="5b1421c4-0584-4ac2-9eb2-c7c50625967a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-dev.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+>>>>>>> 268cbdec1c590cf52568a93eff8e254ff5a2aee6
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,6 +209,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -208,8 +217,16 @@
     "git-widget-placeholder": "sitaram-dev",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/hp/Downloads/demo-new"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;sitaram-dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
+>>>>>>> 268cbdec1c590cf52568a93eff8e254ff5a2aee6
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="application" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.brewery.application.Application" />
@@ -229,5 +246,18 @@
       <updated>1693551043471</updated>
     </task>
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="java:com.google.protobuf:protobuf-java" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
+    <option featureType="dependencySupport" implementationName="java:com.google.cloud:google-cloud-storage" />
+    <option featureType="dependencySupport" implementationName="java:io.grpc:grpc-api" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
   </component>
 </project>
