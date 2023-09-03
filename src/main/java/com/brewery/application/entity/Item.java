@@ -19,6 +19,7 @@ public class Item {
 
     private String name;
 
+    @Column(length = 1000)
     private String details;
 
     @Lob
