@@ -26,13 +26,13 @@ public class Item {
     @Column(columnDefinition = "LONGBLOB")
     private String image;
 
-    private Double price;
+    private Float price;
 
     private Boolean inStock;
 
     private Integer quantityOrdered;
 
-    private Double rating;
+    private Float rating;
 
     private FoodType foodType;
 }

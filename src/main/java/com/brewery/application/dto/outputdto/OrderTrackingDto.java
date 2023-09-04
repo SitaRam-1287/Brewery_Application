@@ -27,5 +27,5 @@ public class OrderTrackingDto {
 
     private String storePhoneNo;
 
-    private Double totalAmount;
+    private Float totalAmount;
 }

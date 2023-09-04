@@ -18,7 +18,7 @@ public class DashboardOutputDto {
 
     private List<String> dates;
 
-    private List<Double> revenue;
+    private List<Float> revenue;
 
     private List<Integer> noOfOrders;
 

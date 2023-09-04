@@ -11,7 +11,7 @@ public class ItemInDto {
 
     private String details;
 
-    private Double price;
+    private Float price;
 
     private Boolean inStock;
 

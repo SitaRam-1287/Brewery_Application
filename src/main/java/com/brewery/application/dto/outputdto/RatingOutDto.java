@@ -16,7 +16,7 @@ public class RatingOutDto {
 
     private String comment;
 
-    private Double rating;
+    private Float rating;
 
     private String itemName;
 

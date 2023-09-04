@@ -105,8 +105,8 @@ public class OrderServiceImpl implements OrderService{
 
     public InvoiceOutDto initiatePayment(UUID id){
         Order order = orderRepository.findById(id).orElseThrow(()->new ElementNotFoundException("Order with given id is not found"));
-        Double Amount = 0.0;
-        Double TotalAmount = 0.0;
+        Float Amount = 0.0F;
+        Float TotalAmount = 0.0F;
         List<OrderItem> foodItems = order.getFoodItems();
         for(OrderItem foodItem : foodItems){
             Item item = foodItem.getItem();
@@ -114,9 +114,9 @@ public class OrderServiceImpl implements OrderService{
         }
         Invoice invoice = new Invoice();
         invoice.setAmount(Amount);
-        invoice.setGst(Amount*0.05);
-        invoice.setDeliveryFee(40.0);
-        invoice.setTotalAmount(Amount+Amount*0.05+40.0);
+        invoice.setGst(Amount*0.05F);
+        invoice.setDeliveryFee(40.0F);
+        invoice.setTotalAmount(Amount+Amount*0.05F+40.0F);
         invoice = invoiceRepository.save(invoice);
         order.setInvoice(invoice);
         order.setTotalAmount(invoice.getTotalAmount());
@@ -179,12 +179,12 @@ public class OrderServiceImpl implements OrderService{
 
     public DashboardOutputDto getDailyReport(){
         List<Order> orders = orderRepository.findAll();
-        HashMap<LocalDate,Double> report = new HashMap<>();
+        HashMap<LocalDate,Float> report = new HashMap<>();
         HashMap<LocalDate,Integer> dailyCount = new HashMap<>();
         Double totalRevenue = 0.0;
         for(Order order : orders){
             LocalDate date = order.getOrderedTime().toLocalDate();
-            report.merge(date, order.getTotalAmount(), Double::sum);
+            report.merge(date, order.getTotalAmount(), Float::sum);
             dailyCount.merge(date, 1, Integer::sum);
         }
 
@@ -192,7 +192,7 @@ public class OrderServiceImpl implements OrderService{
 
         List<String> dates = new ArrayList<>();
 
-        List<Double> revenue = new ArrayList<>();
+        List<Float> revenue = new ArrayList<>();
 
         List<Integer> noOfOrders = new ArrayList<>();
 

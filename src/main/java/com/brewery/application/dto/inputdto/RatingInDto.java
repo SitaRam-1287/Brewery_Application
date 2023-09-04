@@ -11,7 +11,7 @@ public class RatingInDto {
 
     private String comment;
 
-    private Double rating;
+    private Float rating;
 
     private UUID itemId;
 

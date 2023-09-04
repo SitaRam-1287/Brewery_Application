@@ -43,5 +43,5 @@ public class Order {
     @ManyToOne
     private Store store;
 
-    private Double totalAmount;
+    private Float totalAmount;
 }

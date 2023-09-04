@@ -45,7 +45,7 @@ public class RatingServiceImpl implements RatingService {
         Item item = itemRepository.findById(input.getItemId()).orElseThrow(()->new ElementNotFoundException("Item With Given Id is Not Found"));
         Order order = orderRepository.findById(input.getOrderId()).orElseThrow(()->new ElementNotFoundException("error"));
         if(item.getRating()!= null){
-            item.setRating((item.getRating()+ input.getRating())/2);
+            item.setRating((item.getRating()+ input.getRating())/2.0F);
         }else{
             item.setRating(input.getRating());
         }

@@ -16,9 +16,9 @@ public class ItemFullDetailsDto {
 
     private String image;
 
-    private Double price;
+    private Float price;
 
-    private Double rating;
+    private Float rating;
 
     private FoodType foodType;
 

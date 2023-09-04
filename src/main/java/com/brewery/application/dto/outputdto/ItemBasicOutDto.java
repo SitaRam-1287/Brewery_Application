@@ -15,7 +15,7 @@ public class ItemBasicOutDto {
 
     private String image;
 
-    private Double price;
+    private Float price;
 
     private String details;
     

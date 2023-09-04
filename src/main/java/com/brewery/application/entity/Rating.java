@@ -20,7 +20,7 @@ public class Rating {
 
     private String comment;
 
-    private Double rating;
+    private Float rating;
 
     @ManyToOne
     private Item item;

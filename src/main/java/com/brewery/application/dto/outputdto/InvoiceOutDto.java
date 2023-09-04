@@ -9,12 +9,12 @@ public class InvoiceOutDto {
 
     private UUID id;
 
-    private Double amount;
+    private Float amount;
 
-    private Double deliveryFee;
+    private Float deliveryFee;
 
-    private Double gst;
+    private Float gst;
 
-    private Double totalAmount;
+    private Float totalAmount;
 
 }

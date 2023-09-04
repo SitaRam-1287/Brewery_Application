@@ -6,6 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="9696ec2c-f85f-4c30-8b68-38a15424e1fc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/ItemInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/ItemInDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/RatingInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/inputdto/RatingInDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/DashboardOutputDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/DashboardOutputDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/InvoiceOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/InvoiceOutDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemBasicOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemBasicOutDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemFullDetailsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/ItemFullDetailsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/OrderTrackingDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/OrderTrackingDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/RatingOutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/dto/outputdto/RatingOutDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Rating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/entity/Rating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/RatingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/brewery/application/service/Impl/RatingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +31,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -36,7 +59,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;sitaram-dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/Brewery_Application&quot;
   }
@@ -45,6 +68,13 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\HP\Brewery_Application\src" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn install " />
+      <command value="mvn clean install" />
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
